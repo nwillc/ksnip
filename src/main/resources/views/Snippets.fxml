@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <tabs>
+    <Tab text="Browse">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <BorderPane layoutX="1.0" prefHeight="365.0" prefWidth="600.0">
+                     <left>
+                        <ListView fx:id="categories" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </left>
+                     <center>
+                        <ListView fx:id="titles" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                     <bottom>
+                        <TextArea fx:id="text" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <top>
+                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <Button mnemonicParsing="false" text="Button" />
+                          </items>
+                        </ToolBar>
+                     </top>
+                  </BorderPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Snippet">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+      <Tab text="Category">
+        <content>
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <BorderPane prefHeight="368.0" prefWidth="600.0">
+                     <top>
+                        <ToolBar prefHeight="40.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <Button fx:id="categorySave" mnemonicParsing="false" onAction="#saveCategory" text="Save" />
+                          </items>
+                        </ToolBar>
+                     </top>
+                     <center>
+                        <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label text="Category:">
+                                 <FlowPane.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </FlowPane.margin>
+                              </Label>
+                              <TextField fx:id="categoryName">
+                                 <FlowPane.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </FlowPane.margin>
+                              </TextField>
+                           </children>
+                        </FlowPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

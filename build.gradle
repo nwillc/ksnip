@@ -29,13 +29,14 @@ dependencies {
 compileKotlin {
     kotlinOptions.jvmTarget = jvm_version
 }
+
 compileTestKotlin {
     kotlinOptions.jvmTarget = jvm_version
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.github.nwillc.ksnip.TreeViewApp'
+        attributes 'Main-Class': 'com.github.nwillc.ksnip.app.SnippetsApp'
     }
 
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
