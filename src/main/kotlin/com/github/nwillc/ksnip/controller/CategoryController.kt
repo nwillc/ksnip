@@ -6,28 +6,18 @@
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.github.nwillc.ksnip.view
+package com.github.nwillc.ksnip.controller
 
-import com.github.nwillc.ksnip.controller.CategoryController
-import javafx.scene.control.*
+import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
 
-class SnippetsView : View() {
-    override val root: TabPane by fxml("/views/Snippets.fxml")
-    val categories: ListView<String> by fxid()
-    val titles: ListView<String> by fxid()
-    val text: TextArea by fxid()
-    val categoryName: TextField by fxid()
-    val categoryController: CategoryController by inject()
+/**
+ *
+ */
+class CategoryController : Controller() {
+    val snippetView: SnippetsView by inject()
 
-    init {
-        categories.items.add("One")
-        titles.items.addAll("hello", "world")
-        text.text = "hello world"
-    }
-
-    fun saveCategory() {
-        categoryController.addCategory(categoryName.text)
+    fun addCategory(categoryName:String) {
+        snippetView.categories.items.add(categoryName)
     }
 }
-
