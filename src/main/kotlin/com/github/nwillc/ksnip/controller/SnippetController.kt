@@ -8,13 +8,6 @@
 
 package com.github.nwillc.ksnip.controller
 
-import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
 
-class CategoryController : Controller() {
-    val snippetView: SnippetsView by inject()
-
-    fun addCategory(categoryName:String) {
-        snippetView.categories.items.add(categoryName)
-    }
-}
+class SnippetController : Controller()

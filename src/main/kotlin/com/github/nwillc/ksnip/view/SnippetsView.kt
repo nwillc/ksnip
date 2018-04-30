@@ -8,17 +8,24 @@
 
 package com.github.nwillc.ksnip.view
 
+import com.github.nwillc.ksnip.controller.BrowseController
 import com.github.nwillc.ksnip.controller.CategoryController
+import com.github.nwillc.ksnip.controller.SnippetController
 import javafx.scene.control.*
 import tornadofx.*
 
 class SnippetsView : View() {
-    override val root: TabPane by fxml("/views/Snippets.fxml")
-    val categories: ListView<String> by fxid()
-    val titles: ListView<String> by fxid()
-    val text: TextArea by fxid()
-    val categoryName: TextField by fxid()
-    val categoryController: CategoryController by inject()
+    // UI Elements
+    override val root : TabPane by fxml("/views/Snippets.fxml")
+    val categories : ListView<String> by fxid()
+    val titles : ListView<String> by fxid()
+    val text : TextArea by fxid()
+    val categoryName : TextField by fxid()
+
+    // Controllers
+    val categoryController : CategoryController by inject()
+    val snippetController : SnippetController by inject()
+    val browseController : BrowseController by inject()
 
     init {
         categories.items.add("One")
@@ -28,6 +35,10 @@ class SnippetsView : View() {
 
     fun saveCategory() {
         categoryController.addCategory(categoryName.text)
+    }
+
+    fun saveSnippet() {
+
     }
 }
 

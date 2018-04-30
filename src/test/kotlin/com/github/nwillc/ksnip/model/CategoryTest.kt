@@ -6,15 +6,20 @@
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.github.nwillc.ksnip.controller
+package com.github.nwillc.ksnip.model
 
-import com.github.nwillc.ksnip.view.SnippetsView
-import tornadofx.*
 
-class CategoryController : Controller() {
-    val snippetView: SnippetsView by inject()
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
-    fun addCategory(categoryName:String) {
-        snippetView.categories.items.add(categoryName)
+class CategoryTest {
+
+    @Test
+    fun whenCreating() {
+        val category = Category()
+        category.name = "foo"
+
+        assertThat(category.name).isEqualTo("foo")
+        assertThat(category.key).isNotBlank()
     }
 }

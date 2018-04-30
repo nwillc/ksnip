@@ -23,7 +23,12 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-            "no.tornado:tornadofx:$tornadofx_version"
+            "no.tornado:tornadofx:$tornadofx_version",
+            "com.github.nwillc:opa:$opa_version"
+
+    testCompile "org.junit.jupiter:junit-jupiter-engine:5.1.1",
+            "org.junit.platform:junit-platform-runner:1.1.1",
+            "org.assertj:assertj-core:$assertj_version"
 }
 
 compileKotlin {
