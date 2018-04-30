@@ -40,7 +40,7 @@
                      <top>
                         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                           <items>
-                            <Button mnemonicParsing="false" text="Save" />
+                            <Button mnemonicParsing="false" onAction="#saveSnippet" text="Save" />
                           </items>
                         </ToolBar>
                      </top>
@@ -57,11 +57,11 @@
                           </rowConstraints>
                            <children>
                               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="141.0" text="Category:" />
-                              <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ChoiceBox fx:id="snippetCategory" prefWidth="150.0" GridPane.columnIndex="1" />
                               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="133.0" text="Title:" GridPane.rowIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="snippetTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="132.0" text="Snippet:" GridPane.rowIndex="2" />
-                              <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextArea fx:id="snippetBody" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </center>

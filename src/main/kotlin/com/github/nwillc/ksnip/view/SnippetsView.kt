@@ -11,6 +11,7 @@ package com.github.nwillc.ksnip.view
 import com.github.nwillc.ksnip.controller.BrowseController
 import com.github.nwillc.ksnip.controller.CategoryController
 import com.github.nwillc.ksnip.controller.SnippetController
+import com.github.nwillc.ksnip.dao.CategoryDao
 import javafx.scene.control.*
 import tornadofx.*
 
@@ -22,23 +23,36 @@ class SnippetsView : View() {
     val text : TextArea by fxid()
     val categoryName : TextField by fxid()
 
+    val snippetCategory : ChoiceBox<String> by fxid()
+    val snippetTitle : TextField by fxid()
+    val snippetBody : TextArea by fxid()
+
     // Controllers
     val categoryController : CategoryController by inject()
     val snippetController : SnippetController by inject()
     val browseController : BrowseController by inject()
 
     init {
-        categories.items.add("One")
-        titles.items.addAll("hello", "world")
-        text.text = "hello world"
+       refreshCategories()
     }
 
     fun saveCategory() {
         categoryController.addCategory(categoryName.text)
     }
 
-    fun saveSnippet() {
+    fun refreshCategories() {
+        categories.items.clear()
+        snippetCategory.items.clear()
+        CategoryDao.findAll().forEach(
+                {c ->
+                    categories.items.add(c.name)
+                    snippetCategory.items.add(c.name)
+                }
+        )
+    }
 
+    fun saveSnippet() {
+        snippetController.addSnippet(snippetCategory.value, snippetTitle.text, snippetBody.text)
     }
 }
 

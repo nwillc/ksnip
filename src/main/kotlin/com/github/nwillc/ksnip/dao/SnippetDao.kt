@@ -6,21 +6,9 @@
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.github.nwillc.ksnip.controller
+package com.github.nwillc.ksnip.dao
 
-import com.github.nwillc.ksnip.dao.CategoryDao
-import com.github.nwillc.ksnip.model.Category
-import com.github.nwillc.ksnip.view.SnippetsView
-import tornadofx.*
+import com.github.nwillc.ksnip.model.Snippet
+import com.github.nwillc.opa.impl.memory.MemoryBackedDao
 
-class CategoryController : Controller() {
-    val snippetView: SnippetsView by inject()
-
-    fun addCategory(categoryName:String) {
-        val category = Category()
-        category.name = categoryName
-        CategoryDao.save(category)
-        
-        snippetView.refreshCategories()
-    }
-}
+object SnippetDao : MemoryBackedDao<String, Snippet>()

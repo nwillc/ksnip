@@ -8,6 +8,23 @@
 
 package com.github.nwillc.ksnip.controller
 
+import com.github.nwillc.ksnip.dao.SnippetDao
+import com.github.nwillc.ksnip.model.Snippet
+import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
 
-class SnippetController : Controller()
+class SnippetController : Controller() {
+    val snippetView: SnippetsView by inject()
+
+    fun addSnippet(categoryName:String, title: String, body: String) {
+        val snippet = Snippet()
+        snippet.category = categoryName
+        snippet.title = title
+        snippet.body = body
+        SnippetDao.save(snippet)
+
+        println(snippet.toString())
+
+        snippetView.refreshCategories()
+    }
+}
