@@ -12,28 +12,31 @@ import com.github.nwillc.ksnip.controller.BrowseController
 import com.github.nwillc.ksnip.controller.CategoryController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.dao.CategoryDao
+import com.github.nwillc.ksnip.dao.SnippetDao
 import javafx.scene.control.*
 import tornadofx.*
 
 class SnippetsView : View() {
     // UI Elements
-    override val root : TabPane by fxml("/views/Snippets.fxml")
-    val categories : ListView<String> by fxid()
-    val titles : ListView<String> by fxid()
-    val text : TextArea by fxid()
-    val categoryName : TextField by fxid()
+    override val root: TabPane by fxml("/views/Snippets.fxml")
+    val categories: ListView<String> by fxid()
+    val titles: ListView<String> by fxid()
+    val text: TextArea by fxid()
+    val categoryName: TextField by fxid()
 
-    val snippetCategory : ChoiceBox<String> by fxid()
-    val snippetTitle : TextField by fxid()
-    val snippetBody : TextArea by fxid()
+    val snippetCategory: ChoiceBox<String> by fxid()
+    val snippetTitle: TextField by fxid()
+    val snippetBody: TextArea by fxid()
 
     // Controllers
-    val categoryController : CategoryController by inject()
-    val snippetController : SnippetController by inject()
-    val browseController : BrowseController by inject()
+    val categoryController: CategoryController by inject()
+    val snippetController: SnippetController by inject()
+    val browseController: BrowseController by inject()
 
     init {
-       refreshCategories()
+        refreshCategories()
+        categories.onUserSelect { refreshTitles() }
+        titles.onUserSelect { refeshText() }
     }
 
     fun saveCategory() {
@@ -43,12 +46,31 @@ class SnippetsView : View() {
     fun refreshCategories() {
         categories.items.clear()
         snippetCategory.items.clear()
-        CategoryDao.findAll().forEach(
-                {c ->
+        CategoryDao.findAll()
+                .forEach({ c ->
                     categories.items.add(c.name)
                     snippetCategory.items.add(c.name)
-                }
-        )
+                })
+        titles.items.clear()
+        text.text = ""
+    }
+
+    fun refreshTitles() {
+        val selectedItem: String? = categories.selectedItem
+        titles.items.clear()
+        SnippetDao.findAll()
+                .filter({ s -> s.category.equals(selectedItem) })
+                .forEach({ s -> titles.items.add(s.title) })
+        text.text = ""
+    }
+
+    fun refeshText() {
+        val selectedCategory: String? = categories.selectedItem
+        val selectedTitle: String? = titles.selectedItem
+        SnippetDao.findAll()
+                .filter({ s -> s.category.equals(selectedCategory) })
+                .filter({ s -> s.title.equals(selectedTitle) })
+                .forEach({ s -> text.text = s.body })
     }
 
     fun saveSnippet() {
