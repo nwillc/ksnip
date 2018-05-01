@@ -11,11 +11,15 @@ package com.github.nwillc.ksnip.model
 import com.github.nwillc.opa.HasKey
 import java.util.*
 
-class Category(key: String) : HasKey<String>(key) {
+class Category(key: String) : HasKey<String>(key), Comparable<Category> {
     var name = ""
 
     constructor() : this("") {
         key = UUID.randomUUID().toString()
+    }
+
+    override fun compareTo(other: Category): Int {
+        return name.compareTo(other.name)
     }
 
     override fun toString(): String {

@@ -47,6 +47,7 @@ class SnippetsView : View() {
         categories.items.clear()
         snippetCategory.items.clear()
         CategoryDao.findAll()
+                .sorted()
                 .forEach({ c ->
                     categories.items.add(c.name)
                     snippetCategory.items.add(c.name)
@@ -59,6 +60,7 @@ class SnippetsView : View() {
         val selectedItem: String? = categories.selectedItem
         titles.items.clear()
         SnippetDao.findAll()
+                .sorted()
                 .filter({ s -> s.category.equals(selectedItem) })
                 .forEach({ s -> titles.items.add(s.title) })
         text.text = ""
