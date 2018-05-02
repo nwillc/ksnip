@@ -22,11 +22,8 @@ class Snippet(key: String) : HasKey<String>(key), Comparable<Snippet> {
 
     override fun compareTo(other: Snippet): Int {
         val catComp = category.compareTo(other.category)
-        if (catComp != 0) {
-            return catComp
-        }
 
-        return title.compareTo(other.title)
+        return if (catComp != 0) catComp else title.compareTo(other.title)
     }
 
     override fun toString(): String {

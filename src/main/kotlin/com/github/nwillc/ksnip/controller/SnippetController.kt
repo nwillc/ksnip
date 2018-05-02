@@ -23,8 +23,6 @@ class SnippetController : Controller() {
         snippet.body = body
         SnippetDao.save(snippet)
 
-        println(snippet.toString())
-
         snippetView.refreshCategories()
     }
 }

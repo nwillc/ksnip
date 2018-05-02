@@ -14,11 +14,13 @@ import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.dao.CategoryDao
 import com.github.nwillc.ksnip.dao.SnippetDao
 import javafx.scene.control.*
+import javafx.scene.layout.VBox
+import javafx.stage.FileChooser
 import tornadofx.*
 
 class SnippetsView : View() {
     // UI Elements
-    override val root: TabPane by fxml("/views/Snippets.fxml")
+    override val root: VBox by fxml("/views/Snippets.fxml")
     val categories: ListView<String> by fxid()
     val titles: ListView<String> by fxid()
     val text: TextArea by fxid()
@@ -35,12 +37,6 @@ class SnippetsView : View() {
 
     init {
         refreshCategories()
-        categories.onUserSelect { refreshTitles() }
-        titles.onUserSelect { refeshText() }
-    }
-
-    fun saveCategory() {
-        categoryController.addCategory(categoryName.text)
     }
 
     fun refreshCategories() {
@@ -56,6 +52,10 @@ class SnippetsView : View() {
         text.text = ""
     }
 
+    fun exit() {
+        System.exit(0)
+    }
+
     fun refreshTitles() {
         val selectedItem: String? = categories.selectedItem
         titles.items.clear()
@@ -66,7 +66,7 @@ class SnippetsView : View() {
         text.text = ""
     }
 
-    fun refeshText() {
+    fun refreshText() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
         SnippetDao.findAll()
@@ -75,8 +75,20 @@ class SnippetsView : View() {
                 .forEach({ s -> text.text = s.body })
     }
 
+    fun saveCategory() {
+        categoryController.addCategory(categoryName.text)
+        categoryName.text = ""
+    }
+
     fun saveSnippet() {
         snippetController.addSnippet(snippetCategory.value, snippetTitle.text, snippetBody.text)
+        snippetTitle.text = ""
+        snippetBody.text = ""
+    }
+
+    fun openImport() {
+        val file = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
+        println("File $file")
     }
 }
 
