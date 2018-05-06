@@ -8,15 +8,11 @@
 
 package com.github.nwillc.ksnip.view
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.controller.BrowseController
 import com.github.nwillc.ksnip.controller.CategoryController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.dao.CategoryDao
 import com.github.nwillc.ksnip.dao.SnippetDao
-import com.github.nwillc.ksnip.model.ImportFile
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
@@ -94,12 +90,8 @@ class SnippetsView : View() {
     }
 
     fun openImport() {
-        val file = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
-        println("File $file")
-
-        val mapper = ObjectMapper().registerModule(KotlinModule())
-        val importFile = mapper.readValue<ImportFile>(file[0])
-        println("Import: $importFile")
+        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
+        snippetController.importFile(list[0])
     }
 }
 

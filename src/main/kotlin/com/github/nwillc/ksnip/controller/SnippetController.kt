@@ -8,10 +8,16 @@
 
 package com.github.nwillc.ksnip.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.github.nwillc.ksnip.dao.CategoryDao
 import com.github.nwillc.ksnip.dao.SnippetDao
+import com.github.nwillc.ksnip.model.ImportFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
+import java.io.File
 
 class SnippetController : Controller() {
     val snippetView: SnippetsView by inject()
@@ -22,6 +28,23 @@ class SnippetController : Controller() {
         snippet.title = title
         snippet.body = body
         SnippetDao.save(snippet)
+
+        snippetView.refreshCategories()
+    }
+
+    fun importFile(file: File) {
+        val mapper = ObjectMapper().registerModule(KotlinModule())
+        val importFile = mapper.readValue<ImportFile>(file)
+        for (category in importFile.categories) {
+            CategoryDao.save(category)
+        }
+        for (snippet in importFile.snippets) {
+            val found = CategoryDao.findOne(snippet.category)
+            if (found.isPresent) {
+                snippet.category = found.get().name
+                SnippetDao.save(snippet)
+            }
+        }
 
         snippetView.refreshCategories()
     }
