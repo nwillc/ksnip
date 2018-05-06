@@ -45,7 +45,6 @@ class SnippetController : Controller() {
                 SnippetDao.save(snippet)
             }
         }
-
         snippetView.refreshCategories()
     }
 }

@@ -13,10 +13,7 @@ import com.github.nwillc.ksnip.controller.CategoryController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.dao.CategoryDao
 import com.github.nwillc.ksnip.dao.SnippetDao
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.ListView
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
+import javafx.scene.control.*
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import tornadofx.*
@@ -28,6 +25,7 @@ class SnippetsView : View() {
     val titles: ListView<String> by fxid()
     val text: TextArea by fxid()
     val categoryName: TextField by fxid()
+    val searchText: TextField by fxid()
 
     val snippetCategory: ChoiceBox<String> by fxid()
     val snippetTitle: TextField by fxid()
@@ -87,6 +85,10 @@ class SnippetsView : View() {
         snippetController.addSnippet(snippetCategory.value, snippetTitle.text, snippetBody.text)
         snippetTitle.text = ""
         snippetBody.text = ""
+    }
+
+    fun search() {
+        println("search ${searchText.text}")
     }
 
     fun openImport() {
