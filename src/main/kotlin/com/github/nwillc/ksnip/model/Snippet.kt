@@ -8,17 +8,10 @@
 
 package com.github.nwillc.ksnip.model
 
-import com.github.nwillc.opa.HasKey
-import java.util.*
-
-class Snippet(key: String) : HasKey<String>(key), Comparable<Snippet> {
+class Snippet : Comparable<Snippet> {
     var category = ""
     var title = ""
     var body = ""
-
-    constructor() : this("") {
-        key = UUID.randomUUID().toString()
-    }
 
     override fun compareTo(other: Snippet): Int {
         val catComp = category.compareTo(other.category)

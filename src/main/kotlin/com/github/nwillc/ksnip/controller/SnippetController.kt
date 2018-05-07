@@ -11,8 +11,6 @@ package com.github.nwillc.ksnip.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.github.nwillc.ksnip.dao.CategoryDao
-import com.github.nwillc.ksnip.dao.SnippetDao
 import com.github.nwillc.ksnip.model.ImportFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
@@ -20,31 +18,35 @@ import tornadofx.*
 import java.io.File
 
 class SnippetController : Controller() {
+    val snippets = ArrayList<Snippet>()
     val snippetView: SnippetsView by inject()
 
-    fun addSnippet(categoryName:String, title: String, body: String) {
+    fun addSnippet(categoryName: String, title: String, body: String) {
         val snippet = Snippet()
         snippet.category = categoryName
         snippet.title = title
         snippet.body = body
-        SnippetDao.save(snippet)
 
-        snippetView.refreshCategories()
+        snippets.add(snippet)
+        snippetView.refreshCategories(snippets)
     }
 
     fun importFile(file: File) {
         val mapper = ObjectMapper().registerModule(KotlinModule())
         val importFile = mapper.readValue<ImportFile>(file)
-        for (category in importFile.categories) {
-            CategoryDao.save(category)
+
+        println(importFile)
+
+        importFile.snippets.forEach {
+            val snippet = Snippet()
+            snippet.title = it.title
+            snippet.body = it.body
+
+            val category = importFile.categories.filter { c -> c.key.equals(it.category) }.first()
+            snippet.category = category.name
+            snippets.add(snippet)
         }
-        for (snippet in importFile.snippets) {
-            val found = CategoryDao.findOne(snippet.category)
-            if (found.isPresent) {
-                snippet.category = found.get().name
-                SnippetDao.save(snippet)
-            }
-        }
-        snippetView.refreshCategories()
+
+        snippetView.refreshCategories(snippets)
     }
 }

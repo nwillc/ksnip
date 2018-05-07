@@ -11,10 +11,27 @@ package com.github.nwillc.ksnip.model
 import java.util.*
 
 class ImportFile {
-    var categories : Array<Category> = emptyArray()
-    var snippets : Array<Snippet> = emptyArray()
-
+    var categories: Array<ImportCategory> = emptyArray()
+    var snippets: Array<ImportSnippet> = emptyArray()
     override fun toString(): String {
         return "ImportFile(categories=${Arrays.toString(categories)}, snippets=${Arrays.toString(snippets)})"
+    }
+}
+
+class ImportCategory {
+    var key: String = ""
+    var name: String = ""
+    override fun toString(): String {
+        return "ImportCategory(key='$key', name='$name')"
+    }
+}
+
+class ImportSnippet {
+    var key: String = ""
+    var category: String = ""
+    var title: String = ""
+    var body: String = ""
+    override fun toString(): String {
+        return "ImportSnippet(key='$key', category='$category', title='$title', body='$body')"
     }
 }
