@@ -18,8 +18,9 @@ import tornadofx.*
 import java.io.File
 
 class SnippetController : Controller() {
-    val snippets = ArrayList<Snippet>()
+    var snippets = ArrayList<Snippet>()
     val snippetView: SnippetsView by inject()
+    val mapper = ObjectMapper().registerModule(KotlinModule())
 
     fun addSnippet(categoryName: String, title: String, body: String) {
         val snippet = Snippet()
@@ -31,22 +32,32 @@ class SnippetController : Controller() {
         snippetView.refreshCategories(snippets)
     }
 
-    fun importFile(file: File) {
-        val mapper = ObjectMapper().registerModule(KotlinModule())
+    fun importNew(file: File) {
+        val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(file)
+        snippets = arrayOfSnippets
+        snippetView.refreshCategories(snippets)
+    }
+
+    fun importOld(file: File) {
+
         val importFile = mapper.readValue<ImportFile>(file)
 
         println(importFile)
 
-        importFile.snippets.forEach {
+        importFile.snippets.forEach { s ->
             val snippet = Snippet()
-            snippet.title = it.title
-            snippet.body = it.body
+            snippet.title = s.title
+            snippet.body = s.body
 
-            val category = importFile.categories.filter { c -> c.key.equals(it.category) }.first()
+            val category = importFile.categories.filter { c -> c.key.equals(s.category) }.first()
             snippet.category = category.name
             snippets.add(snippet)
         }
 
         snippetView.refreshCategories(snippets)
+    }
+
+    fun saveAs(file: File) {
+        mapper.writeValue(file.outputStream(), snippets)
     }
 }

@@ -10,6 +10,7 @@ package com.github.nwillc.ksnip.view
 
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
+import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
@@ -24,7 +25,7 @@ class SnippetsView : View() {
     val titles: ListView<String> by fxid()
     val text: TextArea by fxid()
     val searchText: TextField by fxid()
-
+    val categoryList: ChoiceBox<String> by fxid()
     val snippetCategory: TextField by fxid()
     val snippetTitle: TextField by fxid()
     val snippetBody: TextArea by fxid()
@@ -49,6 +50,16 @@ class SnippetsView : View() {
 
     fun exit() {
         System.exit(0)
+    }
+
+    fun tabChanged() {
+        categoryList.items.clear()
+
+        snippetController.snippets.map { it.category }
+                .toSet()
+                .sorted()
+                .forEach { }
+        println("plink")
     }
 
     fun refreshTitles() {
@@ -80,9 +91,19 @@ class SnippetsView : View() {
         println("search ${searchText.text}")
     }
 
-    fun openImport() {
+    fun saveAs() {
+        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Save)
+        snippetController.saveAs(list[0])
+    }
+
+    fun openNew() {
         val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
-        snippetController.importFile(list[0])
+        snippetController.importNew(list[0])
+    }
+    
+    fun openOld() {
+        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
+        snippetController.importOld(list[0])
     }
 }
 
