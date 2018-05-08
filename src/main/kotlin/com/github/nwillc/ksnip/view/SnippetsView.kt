@@ -19,6 +19,10 @@ import javafx.stage.FileChooser
 import tornadofx.*
 
 class SnippetsView : View() {
+    companion object {
+        @JvmField val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
+    }
+
     // UI Elements
     override val root: VBox by fxml("/views/Snippets.fxml")
     val categories: ListView<String> by fxid()
@@ -67,6 +71,7 @@ class SnippetsView : View() {
         titles.items.clear()
         text.text = ""
         snippetController.snippets
+                .asSequence()
                 .filter { it.category.equals(selectedCategory) }
                 .forEach { titles.items.add(it.title) }
     }
@@ -75,6 +80,7 @@ class SnippetsView : View() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
         snippetController.snippets
+                .asSequence()
                 .filter { it.category.equals(selectedCategory) }
                 .filter { it.title.equals(selectedTitle) }
                 .forEach { text.text = it.body }
@@ -92,17 +98,17 @@ class SnippetsView : View() {
     }
 
     fun saveAs() {
-        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Save)
+        val list = chooseFile("Save As", JSON_FILTER, FileChooserMode.Save)
         snippetController.saveAs(list[0])
     }
 
     fun openNew() {
-        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
+        val list = chooseFile("Import New", JSON_FILTER, FileChooserMode.Single)
         snippetController.importNew(list[0])
     }
     
     fun openOld() {
-        val list = chooseFile("Import File", arrayOf(FileChooser.ExtensionFilter("JSON File", "*.json")), FileChooserMode.Single)
+        val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
         snippetController.importOld(list[0])
     }
 }
