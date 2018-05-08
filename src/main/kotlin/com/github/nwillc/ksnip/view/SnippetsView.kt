@@ -20,7 +20,8 @@ import tornadofx.*
 
 class SnippetsView : View() {
     companion object {
-        @JvmField val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
+        @JvmField
+        val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
     }
 
     // UI Elements
@@ -46,7 +47,7 @@ class SnippetsView : View() {
         titles.items.clear()
         text.text = ""
 
-        snippets.map { it.category}
+        snippets.map { it.category }
                 .toSet()
                 .sorted()
                 .forEach { categories.items.add(it) }
@@ -106,7 +107,7 @@ class SnippetsView : View() {
         val list = chooseFile("Import New", JSON_FILTER, FileChooserMode.Single)
         snippetController.importNew(list[0])
     }
-    
+
     fun openOld() {
         val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
         snippetController.importOld(list[0])
