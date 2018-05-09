@@ -22,6 +22,14 @@ class SnippetController : Controller() {
     val snippetView: SnippetsView by inject()
     val mapper = ObjectMapper().registerModule(KotlinModule())
 
+    val preferencesController: PreferencesController by inject()
+
+    init {
+        if (preferencesController.preferences.defaultFile.isNotEmpty()) {
+            val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(File(preferencesController.preferences.defaultFile))
+            snippets = arrayOfSnippets
+        }
+    }
     fun addSnippet(categoryName: String, title: String, body: String) {
         val snippet = Snippet()
         snippet.category = categoryName

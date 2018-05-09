@@ -8,6 +8,8 @@
 
 package com.github.nwillc.ksnip.view
 
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
 import javafx.scene.control.ChoiceBox
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import tornadofx.*
+import java.io.File
 
 class SnippetsView : View() {
     companion object {
@@ -37,8 +40,13 @@ class SnippetsView : View() {
 
     // Controllers
     val snippetController: SnippetController by inject()
+    val preferencesController: PreferencesController by inject()
+
+    // Other Views
+    val preferencesView: PreferencesView by inject()
 
     init {
+
         refreshCategories(snippetController.snippets)
     }
 
@@ -96,6 +104,11 @@ class SnippetsView : View() {
 
     fun search() {
         println("search ${searchText.text}")
+        preferencesView.openModal()
+    }
+
+    fun openPreferences() {
+        preferencesView.openModal()
     }
 
     fun saveAs() {
