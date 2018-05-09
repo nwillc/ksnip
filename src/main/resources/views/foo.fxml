@@ -43,7 +43,10 @@
                         <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As…">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />

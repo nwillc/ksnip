@@ -22,6 +22,7 @@ import tornadofx.FileChooserMode
 import tornadofx.View
 import tornadofx.chooseFile
 import tornadofx.selectedItem
+import java.io.File
 
 class SnippetsView : View() {
     companion object {
@@ -113,6 +114,10 @@ class SnippetsView : View() {
 
     fun openPreferences() {
         preferencesView.openModal()
+    }
+
+    fun save() {
+      snippetController.saveAs(File(preferencesController.preferences.defaultFile))
     }
 
     fun saveAs() {
