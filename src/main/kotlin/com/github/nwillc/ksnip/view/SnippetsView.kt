@@ -8,18 +8,20 @@
 
 package com.github.nwillc.ksnip.view
 
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
+import javafx.event.ActionEvent
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
-import tornadofx.*
-import java.io.File
+import tornadofx.FileChooserMode
+import tornadofx.View
+import tornadofx.chooseFile
+import tornadofx.selectedItem
 
 class SnippetsView : View() {
     companion object {
@@ -46,8 +48,9 @@ class SnippetsView : View() {
     val preferencesView: PreferencesView by inject()
 
     init {
-
         refreshCategories(snippetController.snippets)
+        // Scene Builder lacks this event type asignment ?!
+        categoryList.addEventHandler(ActionEvent.ACTION, { categorySelect() })
     }
 
     fun refreshCategories(snippets: List<Snippet>) {
@@ -71,8 +74,7 @@ class SnippetsView : View() {
         snippetController.snippets.map { it.category }
                 .toSet()
                 .sorted()
-                .forEach { }
-        println("plink")
+                .forEach { categoryList.items.add(it) }
     }
 
     fun refreshTitles() {
@@ -82,17 +84,19 @@ class SnippetsView : View() {
         snippetController.snippets
                 .asSequence()
                 .filter { it.category.equals(selectedCategory) }
+                .sorted()
                 .forEach { titles.items.add(it.title) }
     }
 
     fun refreshText() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
-        snippetController.snippets
+        text.text = snippetController.snippets
                 .asSequence()
                 .filter { it.category.equals(selectedCategory) }
                 .filter { it.title.equals(selectedTitle) }
-                .forEach { text.text = it.body }
+                .first()
+                .body
     }
 
     fun saveSnippet() {
@@ -124,6 +128,10 @@ class SnippetsView : View() {
     fun openOld() {
         val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
         snippetController.importOld(list[0])
+    }
+
+    fun categorySelect() {
+        snippetCategory.text = categoryList.value
     }
 }
 

@@ -30,6 +30,7 @@ class SnippetController : Controller() {
             snippets = arrayOfSnippets
         }
     }
+
     fun addSnippet(categoryName: String, title: String, body: String) {
         val snippet = Snippet()
         snippet.category = categoryName
