@@ -31,7 +31,7 @@ class SnippetsView : View() {
     }
 
     // UI Elements
-    override val root: VBox by fxml("/views/Snippets.fxml")
+    override val root: VBox by fxml("/views/snippets.fxml")
     val categories: ListView<String> by fxid()
     val titles: ListView<String> by fxid()
     val text: TextArea by fxid()
