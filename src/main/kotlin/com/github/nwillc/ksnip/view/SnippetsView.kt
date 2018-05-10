@@ -11,13 +11,11 @@ package com.github.nwillc.ksnip.view
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
-import javafx.embed.swing.SwingFXUtils
 import javafx.event.ActionEvent
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
-import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import tornadofx.*
@@ -47,23 +45,21 @@ class SnippetsView : View() {
     // Other Views
     val preferencesView: PreferencesView by inject()
 
+    var workingSet = emptyList<Snippet>()
+
     init {
-        refreshCategories(snippetController.snippets)
+        workingSet = snippetController.snippets
+        refreshCategories()
         // Scene Builder lacks this event type asignment ?!
         categoryList.addEventHandler(ActionEvent.ACTION, { categorySelect() })
-
-        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
-        val image = Image(asStream)
-        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
-        com.apple.eawt.Application.getApplication().dockIconImage = bufferedImage
     }
 
-    fun refreshCategories(snippets: List<Snippet>) {
+    fun refreshCategories() {
         categories.items.clear()
         titles.items.clear()
         text.text = ""
 
-        snippets.map { it.category }
+        workingSet.map { it.category }
                 .toSet()
                 .sorted()
                 .forEach { categories.items.add(it) }
@@ -86,7 +82,7 @@ class SnippetsView : View() {
         val selectedCategory: String? = categories.selectedItem
         titles.items.clear()
         text.text = ""
-        snippetController.snippets
+        workingSet
                 .asSequence()
                 .filter { it.category.equals(selectedCategory) }
                 .sorted()
@@ -96,7 +92,7 @@ class SnippetsView : View() {
     fun refreshText() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
-        text.text = snippetController.snippets
+        text.text = workingSet
                 .asSequence()
                 .filter { it.category.equals(selectedCategory) }
                 .filter { it.title.equals(selectedTitle) }
@@ -112,7 +108,16 @@ class SnippetsView : View() {
     }
 
     fun search() {
-        println("search ${searchText.text}")
+        val search = searchText.text
+        workingSet = if (search.isEmpty()) {
+            snippetController.snippets
+        } else {
+            snippetController.snippets
+                    .filter {
+                        it.title.contains(searchText.text) || it.body.contains(searchText.text)
+                    }
+        }
+        refreshCategories()
     }
 
     fun openPreferences() {

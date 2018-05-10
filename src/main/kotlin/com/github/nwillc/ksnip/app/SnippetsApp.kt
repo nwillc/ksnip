@@ -9,8 +9,18 @@
 package com.github.nwillc.ksnip.app
 
 import com.github.nwillc.ksnip.view.SnippetsView
+import javafx.embed.swing.SwingFXUtils
+import javafx.scene.image.Image
 import tornadofx.*
 
 class SnippetsApp : App() {
     override val primaryView = SnippetsView::class
+
+    init {
+        // Hacky OS X dock icon assignment
+        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
+        val image = Image(asStream)
+        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
+        com.apple.eawt.Application.getApplication().dockIconImage = bufferedImage
+    }
 }

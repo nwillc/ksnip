@@ -38,13 +38,15 @@ class SnippetController : Controller() {
         snippet.body = body
 
         snippets.add(snippet)
-        snippetView.refreshCategories(snippets)
+        snippetView.workingSet = snippets
+        snippetView.refreshCategories()
     }
 
     fun importNew(file: File) {
         val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(file)
         snippets = arrayOfSnippets
-        snippetView.refreshCategories(snippets)
+        snippetView.workingSet = snippets
+        snippetView.refreshCategories()
     }
 
     fun importOld(file: File) {
@@ -62,8 +64,8 @@ class SnippetController : Controller() {
             snippet.category = category.name
             snippets.add(snippet)
         }
-
-        snippetView.refreshCategories(snippets)
+        snippetView.workingSet = snippets
+        snippetView.refreshCategories()
     }
 
     fun saveAs(file: File) {
