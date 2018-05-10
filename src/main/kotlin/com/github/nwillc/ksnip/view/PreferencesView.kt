@@ -5,15 +5,9 @@
 package com.github.nwillc.ksnip.view
 
 import com.github.nwillc.ksnip.controller.PreferencesController
-import com.github.nwillc.ksnip.model.Preferences
 import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
-import tornadofx.FileChooserMode
-import tornadofx.VBoxConstraint
-import tornadofx.View
-import tornadofx.chooseFile
-
-
+import tornadofx.*
 
 
 class PreferencesView : View() {

@@ -7,7 +7,7 @@ package com.github.nwillc.ksnip.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.nwillc.ksnip.model.Preferences
-import tornadofx.Controller
+import tornadofx.*
 import java.io.File
 
 
@@ -15,12 +15,13 @@ class PreferencesController : Controller() {
     companion object {
         val prefFile = File(System.getProperty("user.home"), ".snippets.json")
     }
+
     val mapper = ObjectMapper().registerModule(KotlinModule())
     var preferences = Preferences()
 
     init {
-        if(prefFile.canRead()) {
-           preferences = mapper.readValue<Preferences>(prefFile,Preferences::class.java)
+        if (prefFile.canRead()) {
+            preferences = mapper.readValue<Preferences>(prefFile, Preferences::class.java)
         }
     }
 

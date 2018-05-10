@@ -113,7 +113,6 @@ class SnippetsView : View() {
 
     fun search() {
         println("search ${searchText.text}")
-        preferencesView.openModal()
     }
 
     fun openPreferences() {
@@ -121,7 +120,7 @@ class SnippetsView : View() {
     }
 
     fun save() {
-      snippetController.saveAs(File(preferencesController.preferences.defaultFile))
+        snippetController.saveAs(File(preferencesController.preferences.defaultFile))
     }
 
     fun saveAs() {
