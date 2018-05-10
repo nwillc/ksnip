@@ -69,6 +69,11 @@ class SnippetsView : View() {
         System.exit(0)
     }
 
+    fun find() {
+        searchText.requestFocus()
+        searchText.selectAll()
+    }
+
     fun tabChanged() {
         categoryList.items.clear()
 
