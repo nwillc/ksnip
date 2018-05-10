@@ -65,6 +65,10 @@ class SnippetsView : View() {
                 .forEach { categories.items.add(it) }
     }
 
+    fun minimize() {
+        primaryStage.isIconified = true
+    }
+    
     fun exit() {
         System.exit(0)
     }

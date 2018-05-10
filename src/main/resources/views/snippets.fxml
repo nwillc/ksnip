@@ -70,6 +70,15 @@
                   </MenuItem>
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Window">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#minimize" text="Minimize">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="M" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              </items>
+            </Menu>
       </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
