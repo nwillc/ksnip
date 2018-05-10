@@ -16,11 +16,4 @@ import tornadofx.*
 class SnippetsApp : App() {
     override val primaryView = SnippetsView::class
 
-    init {
-        // Hacky OS X dock icon assignment
-        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
-        val image = Image(asStream)
-        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
-        com.apple.eawt.Application.getApplication().dockIconImage = bufferedImage
-    }
 }
