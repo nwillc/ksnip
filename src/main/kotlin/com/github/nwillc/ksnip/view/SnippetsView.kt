@@ -11,11 +11,10 @@ package com.github.nwillc.ksnip.view
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
+import javafx.embed.swing.SwingFXUtils
 import javafx.event.ActionEvent
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.ListView
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
+import javafx.scene.control.*
+import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import tornadofx.*
@@ -37,6 +36,7 @@ class SnippetsView : View() {
     val snippetCategory: TextField by fxid()
     val snippetTitle: TextField by fxid()
     val snippetBody: TextArea by fxid()
+    val menuBar: MenuBar by fxid()
 
     // Controllers
     val snippetController: SnippetController by inject()
@@ -48,10 +48,27 @@ class SnippetsView : View() {
     var workingSet = emptyList<Snippet>()
 
     init {
+        osxConfig()
         workingSet = snippetController.snippets
         refreshCategories()
         // Scene Builder lacks this event type asignment ?!
         categoryList.addEventHandler(ActionEvent.ACTION, { categorySelect() })
+    }
+
+    fun osxConfig() {
+        val os = System.getProperty("os.name","UNKNOWN")
+        if (!os.equals("Mac OS X")) {
+            println("Skipping OS X tailoring for: $os")
+            return
+        }
+
+        menuBar.isUseSystemMenuBar = true
+        // Hacky OS X dock icon assignment
+        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
+        val image = Image(asStream)
+        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
+        com.apple.eawt.Application.getApplication().dockIconImage = bufferedImage
+
     }
 
     fun refreshCategories() {
@@ -65,8 +82,17 @@ class SnippetsView : View() {
                 .forEach { categories.items.add(it) }
     }
 
+    fun minimize() {
+        primaryStage.isIconified = true
+    }
+
     fun exit() {
         System.exit(0)
+    }
+
+    fun find() {
+        searchText.requestFocus()
+        searchText.selectAll()
     }
 
     fun tabChanged() {
