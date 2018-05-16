@@ -56,7 +56,7 @@ class SnippetsView : View() {
     }
 
     fun osxConfig() {
-        val os = System.getProperty("os.name","UNKNOWN")
+        val os = System.getProperty("os.name", "UNKNOWN")
         if (!os.equals("Mac OS X")) {
             println("Skipping OS X tailoring for: $os")
             return
@@ -126,6 +126,30 @@ class SnippetsView : View() {
                 .body
     }
 
+    fun updateSnippet() {
+        val selectedCategory: String? = categories.selectedItem
+        val selectedTitle: String? = titles.selectedItem
+        workingSet
+                .asSequence()
+                .filter { it.category.equals(selectedCategory) }
+                .filter { it.title.equals(selectedTitle) }
+                .forEach { it.body = text.text }
+    }
+
+    fun deleteSnippet() {
+        val selectedCategory: String? = categories.selectedItem
+        val selectedTitle: String? = titles.selectedItem
+
+        println("delete")
+
+        val snippet = snippetController.snippets.find {
+            it.category.equals(selectedCategory) &&
+                    it.title.equals(selectedTitle)
+        }
+        snippetController.snippets.remove(snippet)
+        search()
+    }
+
     fun saveSnippet() {
         snippetController.addSnippet(snippetCategory.text, snippetTitle.text, snippetBody.text)
         snippetCategory.text = ""
@@ -139,9 +163,7 @@ class SnippetsView : View() {
             snippetController.snippets
         } else {
             snippetController.snippets
-                    .filter {
-                        it.title.contains(searchText.text) || it.body.contains(searchText.text)
-                    }
+                    .filter { it.title.contains(searchText.text) || it.body.contains(searchText.text) }
         }
         refreshCategories()
     }
