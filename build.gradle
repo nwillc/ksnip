@@ -26,8 +26,8 @@ dependencies {
             "no.tornado:tornadofx:$tornadofx_version",
             "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
 
-    testCompile "org.junit.jupiter:junit-jupiter-engine:5.1.1",
-            "org.junit.platform:junit-platform-runner:1.1.1",
+    testCompile "org.junit.jupiter:junit-jupiter-engine:$jupiter_version",
+            "org.junit.platform:junit-platform-runner:$junit_platform_version",
             "org.assertj:assertj-core:$assertj_version"
 }
 
