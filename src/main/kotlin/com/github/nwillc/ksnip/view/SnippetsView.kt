@@ -58,7 +58,6 @@ class SnippetsView : View() {
     fun osxConfig() {
         val os = System.getProperty("os.name", "UNKNOWN")
         if (!os.equals("Mac OS X")) {
-            println("Skipping OS X tailoring for: $os")
             return
         }
 
@@ -67,8 +66,11 @@ class SnippetsView : View() {
         val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
         val image = Image(asStream)
         val bufferedImage = SwingFXUtils.fromFXImage(image, null)
-        com.apple.eawt.Application.getApplication().dockIconImage = bufferedImage
-
+        val applicationClass = Class.forName("com.apple.eawt.Application")
+        val method = applicationClass.getMethod("getApplication")
+        val application = method.invoke(applicationClass)
+        val setDockImage = application.javaClass.getMethod("setDockIconImage", java.awt.Image::class.java)
+        setDockImage.invoke(application, bufferedImage)
     }
 
     fun refreshCategories() {
