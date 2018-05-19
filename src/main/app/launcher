@@ -1,11 +1,11 @@
 #!/bin/sh
 # Author: Pedro Maroco (www.pmaroco.com)
+# Modified: nwillc@mail.com
 
 # Constants
-JAVA_MAJOR=1
-JAVA_MINOR=8
-APP_JAR="KSnip-1.0-SNAPSHOT.jar"
-APP_NAME="KSnip"
+JAVA_VERSION="1.8"
+APP_JAR="@APP_JAR@"
+APP_NAME="@APP_NAME@"
 VM_ARGS=""
 
 # Set the working directory
@@ -13,7 +13,7 @@ DIR=$(cd "$(dirname "$0")"; pwd)
 
 # Error message for NO JAVA dialog
 ERROR_TITLE="Cannot launch $APP_NAME"
-ERROR_MSG="$APP_NAME requires Java version $JAVA_MAJOR.$JAVA_MINOR or later to run."
+ERROR_MSG="$APP_NAME requires Java version $JAVA_VERSION or later to run."
 DOWNLOAD_URL="http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html"
 
 # Is Java installed?
@@ -33,7 +33,7 @@ fi
 # Java version check
 if [[ "$_java" ]]; then
     version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
-    if [[ "$version" < "$JAVA_MAJOR.$JAVA_MINOR" ]]; then
+    if [[ "$version" < "$JAVA_VERSION" ]]; then
         osascript \
     	-e "set question to display dialog \"$ERROR_MSG\" with title \"$ERROR_TITLE\" buttons {\"Cancel\", \"Download\"} default button 2" \
     	-e "if button returned of question is equal to \"Download\" then open location \"$DOWNLOAD_URL\""
