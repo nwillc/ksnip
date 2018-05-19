@@ -47,23 +47,25 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-task appBundle(type: Copy) {
-    println("Creating App Bundle")
-
-    mkdir("KSnip.app")
-    mkdir("KSnip.app/Contents")
-    mkdir("KSnip.app/Contents/MacOS")
-    mkdir("KSnip.app/Contents/Resources")
+task osxApp(type: Copy) {
+    def dist = "${buildDir}/app/${project.name}.app"
+    mkdir("$dist/Contents/MacOS")
+    mkdir("$dist/Contents/Resources")
 
     ant.copy file: "src/main/app/Info.plist",
-            todir: "KSnip.app/Contents"
+            todir: "$dist/Contents"
 
     ant.copy file: "src/main/app/launcher",
-            todir: "KSnip.app/Contents/MacOS"
+            todir: "$dist/Contents/MacOS"
+
+    project.exec {
+        commandLine('chmod',  '+x', "$dist/Contents/MacOS/launcher")
+    }
 
     ant.copy file: "src/main/app/application.icns",
-            todir: "KSnip.app/Contents/Resources"
+            todir: "$dist/Contents/Resources"
 
-    ant.copy file: "build/libs/KSnip-${version}.jar",
-            todir: "KSnip.app/Contents/MacOS"
+    ant.copy file: "build/libs/${project.name}-${version}.jar",
+            todir: "$dist/Contents/MacOS"
 }
+
