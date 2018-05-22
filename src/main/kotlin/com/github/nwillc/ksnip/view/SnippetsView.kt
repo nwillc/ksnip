@@ -62,7 +62,7 @@ class SnippetsView : View() {
         }
 
         menuBar.isUseSystemMenuBar = true
-        // Hacky OS X dock icon assignment
+        // Hacky OS X dock icon assignment, done with reflection so it can build with any JDK but run on OS X.
         val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
         val image = Image(asStream)
         val bufferedImage = SwingFXUtils.fromFXImage(image, null)

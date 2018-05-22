@@ -7,8 +7,4 @@ package com.github.nwillc.ksnip.model
 
 class Preferences {
     var defaultFile = ""
-
-    init {
-
-    }
 }
