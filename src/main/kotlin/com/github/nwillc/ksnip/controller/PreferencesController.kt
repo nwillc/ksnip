@@ -13,22 +13,23 @@ import java.io.File
 
 class PreferencesController : Controller() {
     companion object {
-        val prefFile = File(System.getProperty("user.home"), ".snippets.json")
+        @JvmField
+        val PREF_FILE = File(System.getProperty("user.home"), ".snippets.json")
     }
 
     val mapper = ObjectMapper().registerModule(KotlinModule())
     var preferences = Preferences()
 
     init {
-        if (prefFile.canRead()) {
-            preferences = mapper.readValue<Preferences>(prefFile, Preferences::class.java)
+        if (PREF_FILE.canRead()) {
+            preferences = mapper.readValue<Preferences>(PREF_FILE, Preferences::class.java)
         }
     }
 
     fun savePreferences() {
-        prefFile.delete()
-        prefFile.createNewFile()
-        val outputStream = prefFile.outputStream();
+        PREF_FILE.delete()
+        PREF_FILE.createNewFile()
+        val outputStream = PREF_FILE.outputStream();
         mapper.writeValue(outputStream, preferences)
     }
 }

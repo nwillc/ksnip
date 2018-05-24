@@ -8,18 +8,9 @@
 
 package com.github.nwillc.ksnip.model
 
-class Snippet : Comparable<Snippet> {
-    var category = ""
-    var title = ""
-    var body = ""
-
+data class Snippet(var category: String = "", var title: String = "", var body: String = "") : Comparable<Snippet> {
     override fun compareTo(other: Snippet): Int {
-        val catComp = category.compareTo(other.category)
-
-        return if (catComp != 0) catComp else title.compareTo(other.title)
-    }
-
-    override fun toString(): String {
-        return "Snippet(category='$category',title='$title',body='$body')"
+        val catComp = category.compareTo(other.category, true)
+        return if (catComp != 0) catComp else title.compareTo(other.title, true)
     }
 }

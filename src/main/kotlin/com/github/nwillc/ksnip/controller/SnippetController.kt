@@ -26,7 +26,8 @@ class SnippetController : Controller() {
 
     init {
         if (preferencesController.preferences.defaultFile.isNotEmpty()) {
-            val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(File(preferencesController.preferences.defaultFile))
+            val arrayOfSnippets =
+                mapper.readValue<ArrayList<Snippet>>(File(preferencesController.preferences.defaultFile))
             snippets = arrayOfSnippets
         }
     }

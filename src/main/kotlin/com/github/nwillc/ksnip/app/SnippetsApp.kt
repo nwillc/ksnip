@@ -15,5 +15,4 @@ import tornadofx.*
 
 class SnippetsApp : App() {
     override val primaryView = SnippetsView::class
-
 }

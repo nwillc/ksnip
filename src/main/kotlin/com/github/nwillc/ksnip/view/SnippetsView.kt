@@ -79,9 +79,9 @@ class SnippetsView : View() {
         text.text = ""
 
         workingSet.map { it.category }
-                .toSet()
-                .sorted()
-                .forEach { categories.items.add(it) }
+            .toSet()
+            .sorted()
+            .forEach { categories.items.add(it) }
     }
 
     fun minimize() {
@@ -101,9 +101,9 @@ class SnippetsView : View() {
         categoryList.items.clear()
 
         snippetController.snippets.map { it.category }
-                .toSet()
-                .sorted()
-                .forEach { categoryList.items.add(it) }
+            .toSet()
+            .sorted()
+            .forEach { categoryList.items.add(it) }
     }
 
     fun refreshTitles() {
@@ -111,31 +111,31 @@ class SnippetsView : View() {
         titles.items.clear()
         text.text = ""
         workingSet
-                .asSequence()
-                .filter { it.category.equals(selectedCategory) }
-                .sorted()
-                .forEach { titles.items.add(it.title) }
+            .asSequence()
+            .filter { it.category.equals(selectedCategory) }
+            .sorted()
+            .forEach { titles.items.add(it.title) }
     }
 
     fun refreshText() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
         text.text = workingSet
-                .asSequence()
-                .filter { it.category.equals(selectedCategory) }
-                .filter { it.title.equals(selectedTitle) }
-                .first()
-                .body
+            .asSequence()
+            .filter { it.category.equals(selectedCategory) }
+            .filter { it.title.equals(selectedTitle) }
+            .first()
+            .body
     }
 
     fun updateSnippet() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
         workingSet
-                .asSequence()
-                .filter { it.category.equals(selectedCategory) }
-                .filter { it.title.equals(selectedTitle) }
-                .forEach { it.body = text.text }
+            .asSequence()
+            .filter { it.category.equals(selectedCategory) }
+            .filter { it.title.equals(selectedTitle) }
+            .forEach { it.body = text.text }
     }
 
     fun deleteSnippet() {
@@ -165,7 +165,7 @@ class SnippetsView : View() {
             snippetController.snippets
         } else {
             snippetController.snippets
-                    .filter { it.title.contains(searchText.text) || it.body.contains(searchText.text) }
+                .filter { it.title.contains(searchText.text) || it.body.contains(searchText.text) }
         }
         refreshCategories()
     }
