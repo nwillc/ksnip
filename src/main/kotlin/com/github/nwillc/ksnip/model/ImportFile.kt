@@ -18,20 +18,14 @@ class ImportFile {
     }
 }
 
-class ImportCategory {
-    var key: String = ""
+data class ImportCategory(
+    var key: String = "",
     var name: String = ""
-    override fun toString(): String {
-        return "ImportCategory(key='$key', name='$name')"
-    }
-}
+)
 
-class ImportSnippet {
-    var key: String = ""
-    var category: String = ""
-    var title: String = ""
+data class ImportSnippet(
+    var key: String = "",
+    var category: String = "",
+    var title: String = "",
     var body: String = ""
-    override fun toString(): String {
-        return "ImportSnippet(key='$key', category='$category', title='$title', body='$body')"
-    }
-}
+)
