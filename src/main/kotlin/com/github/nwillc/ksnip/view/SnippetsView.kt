@@ -93,19 +93,31 @@ class SnippetsView : View() {
             .forEach { categories.items.add(it) }
     }
 
+    /**
+     * Minimize the UI.
+     */
     fun minimize() {
         primaryStage.isIconified = true
     }
 
+    /**
+     * Exit the application.
+     */
     fun exit() {
         System.exit(0)
     }
 
+    /**
+     * Focus on the find field.
+     */
     fun find() {
         searchText.requestFocus()
         searchText.selectAll()
     }
 
+    /**
+     * Note when a tab is changed.
+     */
     fun tabChanged() {
         categoryList.items.clear()
 
