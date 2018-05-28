@@ -16,9 +16,6 @@ import java.io.File
  */
 class PreferencesController : Controller() {
     companion object {
-        /**
-         * The default location of the preferences file.
-         */
         private val PREF_FILE = File(System.getProperty("user.home"), ".snippets.json")
     }
 
