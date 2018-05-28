@@ -27,8 +27,10 @@ import java.io.File
  */
 class SnippetsView : View() {
     companion object {
-        @JvmField
-        val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
+        /**
+         * File type filter for open panels.
+         */
+        private val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
     }
 
     // UI Elements
@@ -127,6 +129,9 @@ class SnippetsView : View() {
             .forEach { categoryList.items.add(it) }
     }
 
+    /**
+     * Refresh the titles list.
+     */
     fun refreshTitles() {
         val selectedCategory: String? = categories.selectedItem
         titles.items.clear()
@@ -138,6 +143,9 @@ class SnippetsView : View() {
             .forEach { titles.items.add(it.title) }
     }
 
+    /**
+     * Refresh the snippet text.
+     */
     fun refreshText() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
@@ -149,6 +157,9 @@ class SnippetsView : View() {
             .body
     }
 
+    /**
+     * Update the snippet with the current values.
+     */
     fun updateSnippet() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
@@ -159,11 +170,12 @@ class SnippetsView : View() {
             .forEach { it.body = text.text }
     }
 
+    /**
+     * Delete the current snippet.
+     */
     fun deleteSnippet() {
         val selectedCategory: String? = categories.selectedItem
         val selectedTitle: String? = titles.selectedItem
-
-        println("delete")
 
         val snippet = snippetController.snippets.find {
             it.category.equals(selectedCategory) &&
@@ -173,6 +185,9 @@ class SnippetsView : View() {
         search()
     }
 
+    /**
+     * Save the current snippet.
+     */
     fun saveSnippet() {
         snippetController.addSnippet(snippetCategory.text, snippetTitle.text, snippetBody.text)
         snippetCategory.text = ""
@@ -180,6 +195,9 @@ class SnippetsView : View() {
         snippetBody.text = ""
     }
 
+    /**
+     * Search snippets titles and text.
+     */
     fun search() {
         val search = searchText.text
         workingSet = if (search.isEmpty()) {
@@ -191,29 +209,47 @@ class SnippetsView : View() {
         refreshCategories()
     }
 
+    /**
+     * Open the preferences panel.
+     */
     fun openPreferences() {
         preferencesView.openModal()
     }
 
+    /**
+     * Save the snippets to the default file.
+     */
     fun save() {
         snippetController.saveAs(File(preferencesController.preferences.defaultFile))
     }
 
+    /**
+     * Save the snippets to another file.
+     */
     fun saveAs() {
         val list = chooseFile("Save As", JSON_FILTER, FileChooserMode.Save)
         snippetController.saveAs(list[0])
     }
 
+    /**
+     * Open a new style file.
+     */
     fun openNew() {
         val list = chooseFile("Import New", JSON_FILTER, FileChooserMode.Single)
         snippetController.import(list[0])
     }
 
+    /**
+     * Open a legacy file.
+     */
     fun openOld() {
         val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
         snippetController.importLagacy(list[0])
     }
 
+    /**
+     * Note selected category.
+     */
     fun categorySelect() {
         snippetCategory.text = categoryList.value
     }
