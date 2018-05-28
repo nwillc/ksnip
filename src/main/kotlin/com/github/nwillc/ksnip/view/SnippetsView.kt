@@ -30,7 +30,7 @@ class SnippetsView : View() {
         /**
          * File type filter for open panels.
          */
-        private val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
+        val JSON_FILTER = arrayOf(FileChooser.ExtensionFilter("JSON file", "*.json"))
     }
 
     // UI Elements
