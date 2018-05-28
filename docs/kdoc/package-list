@@ -1,0 +1,7 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.github.nwillc.ksnip
+com.github.nwillc.ksnip.controller
+com.github.nwillc.ksnip.model
+com.github.nwillc.ksnip.view
