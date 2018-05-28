@@ -17,3 +17,8 @@ java -jar build/libs/KSnip-1.0-SNAPSHOT.jar
 # Run App
 open build/app/KSnip.app 
 ```
+
+___
+
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e9e773f58c024f868b7fdc52c2279635)](https://www.codacy.com/app/nwillc/ksnip?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nwillc/ksnip&amp;utm_campaign=Badge_Grade)
