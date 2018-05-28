@@ -18,6 +18,8 @@ java -jar build/libs/KSnip-1.0-SNAPSHOT.jar
 open build/app/KSnip.app 
 ```
 
+[Code Documentation](https://nwillc.github.io/ksnip/kdoc/)
+
 ___
 
 [![Travis](https://img.shields.io/travis/nwillc/ksnip.svg)](https://travis-ci.org/nwillc/ksnip)
