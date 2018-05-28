@@ -9,21 +9,31 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
 import tornadofx.*
 
-
+/**
+ * A view managing the application preferences panel.
+ * @property root the UIs view.
+ */
 class PreferencesView : View() {
+    private val preferencesController: PreferencesController by inject()
+    private val defaultFile: TextField by fxid()
+
     override val root: VBox by fxml("/views/preferences.fxml")
-    val defaultFile: TextField by fxid()
-    val preferencesController: PreferencesController by inject()
 
     init {
         defaultFile.text = preferencesController.preferences.defaultFile
     }
 
+    /**
+     * Set the defualt file name.
+     */
     fun setDefaultFile() {
         val list = chooseFile("Default File", SnippetsView.JSON_FILTER, FileChooserMode.Single)
         defaultFile.text = list[0].path
     }
 
+    /**
+     * Persist the appication preferences.
+     */
     fun savePreferences() {
         preferencesController.preferences.defaultFile = defaultFile.text
         preferencesController.savePreferences()

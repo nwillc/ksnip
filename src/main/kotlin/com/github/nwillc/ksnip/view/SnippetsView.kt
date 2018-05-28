@@ -20,6 +20,11 @@ import javafx.stage.FileChooser
 import tornadofx.*
 import java.io.File
 
+/**
+ * The view managing the snippets UI.
+ * @property workingSet the set of snippets being displayed.
+ * @property root the root UI view.
+ */
 class SnippetsView : View() {
     companion object {
         @JvmField
@@ -27,25 +32,26 @@ class SnippetsView : View() {
     }
 
     // UI Elements
-    override val root: VBox by fxml("/views/snippets.fxml")
-    val categories: ListView<String> by fxid()
-    val titles: ListView<String> by fxid()
-    val text: TextArea by fxid()
-    val searchText: TextField by fxid()
-    val categoryList: ChoiceBox<String> by fxid()
-    val snippetCategory: TextField by fxid()
-    val snippetTitle: TextField by fxid()
-    val snippetBody: TextArea by fxid()
-    val menuBar: MenuBar by fxid()
+    private val categories: ListView<String> by fxid()
+    private val titles: ListView<String> by fxid()
+    private val text: TextArea by fxid()
+    private val searchText: TextField by fxid()
+    private val categoryList: ChoiceBox<String> by fxid()
+    private val snippetCategory: TextField by fxid()
+    private val snippetTitle: TextField by fxid()
+    private val snippetBody: TextArea by fxid()
+    private val menuBar: MenuBar by fxid()
 
     // Controllers
-    val snippetController: SnippetController by inject()
-    val preferencesController: PreferencesController by inject()
+    private val snippetController: SnippetController by inject()
+    private val preferencesController: PreferencesController by inject()
 
     // Other Views
-    val preferencesView: PreferencesView by inject()
+    private val preferencesView: PreferencesView by inject()
 
     var workingSet = emptyList<Snippet>()
+
+    override val root: VBox by fxml("/views/snippets.fxml")
 
     init {
         osxConfig()
@@ -55,7 +61,7 @@ class SnippetsView : View() {
         categoryList.addEventHandler(ActionEvent.ACTION, { categorySelect() })
     }
 
-    fun osxConfig() {
+    private fun osxConfig() {
         val os = System.getProperty("os.name", "UNKNOWN")
         if (!os.equals("Mac OS X")) {
             return
@@ -73,7 +79,10 @@ class SnippetsView : View() {
         setDockImage.invoke(application, bufferedImage)
     }
 
-    fun refreshCategories() {
+    /**
+     * Refresh the categories displayed based on the [workingSet].
+     */
+   fun refreshCategories() {
         categories.items.clear()
         titles.items.clear()
         text.text = ""
