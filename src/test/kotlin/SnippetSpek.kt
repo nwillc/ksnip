@@ -23,12 +23,97 @@ internal class SnippetSpek : Spek({
                 assertThat(snippet.body).isBlank()
             }
             it("getters and setters should work") {
-                snippet.category = SnippetSpek.CATEGORY
-                assertThat(snippet.category).isEqualTo(SnippetSpek.CATEGORY)
-                snippet.title = SnippetSpek.TITLE
-                assertThat(snippet.title).isEqualTo(SnippetSpek.TITLE)
-                snippet.body = SnippetSpek.BODY
-                assertThat(snippet.body).isEqualTo(SnippetSpek.BODY)
+                snippet.category = CATEGORY
+                assertThat(snippet.category).isEqualTo(CATEGORY)
+                snippet.title = TITLE
+                assertThat(snippet.title).isEqualTo(TITLE)
+                snippet.body = BODY
+                assertThat(snippet.body).isEqualTo(BODY)
+            }
+        }
+    }
+    given("two snippets") {
+        val snippet1 = Snippet()
+        val snippet2 = Snippet()
+        on("comparison") {
+            it("should ignore the body") {
+                snippet1.category = CATEGORY
+                snippet2.category = CATEGORY
+                snippet1.title = TITLE
+                snippet2.title = TITLE
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
+            }
+            it("should ignore the case of the category") {
+                snippet1.category = CATEGORY
+                snippet2.category = CATEGORY.toLowerCase()
+                snippet1.title = TITLE
+                snippet2.title = TITLE
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
+            }
+            it("should ignore the case of the title") {
+                snippet1.category = CATEGORY
+                snippet2.category = CATEGORY
+                snippet1.title = TITLE
+                snippet2.title = TITLE.capitalize()
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
+            }
+            it("should compare the category") {
+                snippet1.category = ""
+                snippet2.category = CATEGORY
+                snippet1.title = TITLE
+                snippet2.title = TITLE
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isLessThan(0)
+                snippet1.category = CATEGORY
+                snippet2.category = ""
+                assertThat(snippet1.compareTo(snippet2)).isGreaterThan(0)
+            }
+            it("should ignore the case of the title") {
+                snippet1.category = CATEGORY
+                snippet2.category = CATEGORY
+                snippet1.title = TITLE
+                snippet2.title = TITLE.capitalize()
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
+            }
+            it("should compare the category") {
+                snippet1.category = ""
+                snippet2.category = CATEGORY
+                snippet1.title = TITLE
+                snippet2.title = TITLE
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isLessThan(0)
+                snippet1.category = CATEGORY
+                snippet2.category = ""
+                assertThat(snippet1.compareTo(snippet2)).isGreaterThan(0)
+            }
+            it("should compare the title") {
+                snippet1.category = CATEGORY
+                snippet2.category = CATEGORY
+                snippet1.title = ""
+                snippet2.title = TITLE
+                snippet1.body = BODY
+                snippet2.body = BODY + BODY
+
+                assertThat(snippet1.compareTo(snippet2)).isLessThan(0)
+                snippet1.title = TITLE
+                snippet2.title = ""
+                assertThat(snippet1.compareTo(snippet2)).isGreaterThan(0)
             }
         }
     }
