@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SnippetController - KSnip</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">KSnip</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.ksnip.controller</a>&nbsp;/&nbsp;<a href="./index.html">SnippetController</a><br/>
+<br/>
+<h1>SnippetController</h1>
+<code><span class="keyword">class </span><span class="identifier">SnippetController</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Controller</span></code>
+<p>Application controller for operations regarding <a href="../../com.github.nwillc.ksnip.model/-snippet/index.html">Snippet</a>s.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">SnippetController</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Application controller for operations regarding <a href="../../com.github.nwillc.ksnip.model/-snippet/index.html">Snippet</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="snippets.html">snippets</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">snippets</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.github.nwillc.ksnip.model/-snippet/index.html"><span class="identifier">Snippet</span></a><span class="symbol">&gt;</span></code>
+<p>the working list of snippets.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-snippet.html">addSnippet</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addSnippet</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$addSnippet(kotlin.String, kotlin.String, kotlin.String)/category">category</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$addSnippet(kotlin.String, kotlin.String, kotlin.String)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$addSnippet(kotlin.String, kotlin.String, kotlin.String)/body">body</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Add a new <a href="../../com.github.nwillc.ksnip.model/-snippet/index.html">Snippet</a> to the <a href="snippets.html">snippets</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="import.html">import</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">import</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$import(java.io.File)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Import a JSON file containing an array of snippets.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="import-lagacy.html">importLagacy</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">importLagacy</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$importLagacy(java.io.File)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Import a <a href="../../com.github.nwillc.ksnip.model/-legacy-file/index.html">LegacyFile</a> of snippets.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="save-as.html">saveAs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveAs</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.ksnip.controller.SnippetController$saveAs(java.io.File)/file">file</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Save an array of <a href="../../com.github.nwillc.ksnip.model/-snippet/index.html">Snippet</a>s to a file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
