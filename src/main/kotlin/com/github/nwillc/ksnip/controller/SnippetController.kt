@@ -11,7 +11,7 @@ package com.github.nwillc.ksnip.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.github.nwillc.ksnip.model.ImportFile
+import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
@@ -52,7 +52,7 @@ class SnippetController : Controller() {
 
     fun importOld(file: File) {
 
-        val importFile = mapper.readValue<ImportFile>(file)
+        val importFile = mapper.readValue<LegacyFile>(file)
 
         println(importFile)
 

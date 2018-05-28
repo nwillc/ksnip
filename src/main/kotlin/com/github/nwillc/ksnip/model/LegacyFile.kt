@@ -8,22 +8,34 @@
 
 package com.github.nwillc.ksnip.model
 
-import java.util.*
+/**
+ * Data class supporting legacy snippet JSON persistence file format.
+ * @property categories an Array of legacy Categories.
+ * @property snippets an Array of legacy snippets.
+ */
+data class LegacyFile(
+    var categories: Array<LegacyCategory> = emptyArray(),
+    var snippets: Array<LagacySnippet> = emptyArray()
+)
 
-class ImportFile {
-    var categories: Array<ImportCategory> = emptyArray()
-    var snippets: Array<ImportSnippet> = emptyArray()
-    override fun toString(): String {
-        return "ImportFile(categories=${Arrays.toString(categories)}, snippets=${Arrays.toString(snippets)})"
-    }
-}
-
-data class ImportCategory(
+/**
+ * Data class supporting legacy Category format.
+ * @property key the unique identifier of the category.
+ * @property name the category name.
+ */
+data class LegacyCategory(
     var key: String = "",
     var name: String = ""
 )
 
-data class ImportSnippet(
+/**
+ * Data class supporting the legacy snippet format.
+ * @property key the unique identifier of the snippet.
+ * @property category the unique identifier of the category of the snippet.
+ * @property title the snippet's title.
+ * @property body the snippet's body.
+ */
+data class LagacySnippet(
     var key: String = "",
     var category: String = "",
     var title: String = "",
