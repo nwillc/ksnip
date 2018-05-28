@@ -21,7 +21,7 @@ data class Snippet(
     var body: String = ""
 ) : Comparable<Snippet> {
     /**
-     * Compares one snippet to [other], employing the category and title to compares two snippets.
+     * Compares one snippet to [other], employing the category and title to compare the two snippets.
      * @return 0 if equal, -1 if less, 1 if greater
      */
     override fun compareTo(other: Snippet): Int {

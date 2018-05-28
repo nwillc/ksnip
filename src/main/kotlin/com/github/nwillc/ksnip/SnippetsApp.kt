@@ -13,6 +13,7 @@ import tornadofx.App
 
 /**
  * The entry point of the application.
+ * @property primaryView the primary application view.
  */
 class SnippetsApp : App() {
     override val primaryView = SnippetsView::class

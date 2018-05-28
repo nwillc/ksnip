@@ -185,12 +185,12 @@ class SnippetsView : View() {
 
     fun openNew() {
         val list = chooseFile("Import New", JSON_FILTER, FileChooserMode.Single)
-        snippetController.importNew(list[0])
+        snippetController.import(list[0])
     }
 
     fun openOld() {
         val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
-        snippetController.importOld(list[0])
+        snippetController.importLagacy(list[0])
     }
 
     fun categorySelect() {

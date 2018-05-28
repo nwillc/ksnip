@@ -17,12 +17,15 @@ import com.github.nwillc.ksnip.view.SnippetsView
 import tornadofx.*
 import java.io.File
 
+/**
+ * Application controller for operations regarding [Snippet]s.
+ * @property snippets the working list of snippets.
+ */
 class SnippetController : Controller() {
+    private val snippetView: SnippetsView by inject()
+    private val mapper = ObjectMapper().registerModule(KotlinModule())
+    private val preferencesController: PreferencesController by inject()
     var snippets = ArrayList<Snippet>()
-    val snippetView: SnippetsView by inject()
-    val mapper = ObjectMapper().registerModule(KotlinModule())
-
-    val preferencesController: PreferencesController by inject()
 
     init {
         if (preferencesController.preferences.defaultFile.isNotEmpty()) {
@@ -32,9 +35,15 @@ class SnippetController : Controller() {
         }
     }
 
-    fun addSnippet(categoryName: String, title: String, body: String) {
+    /**
+     * Add a new [Snippet] to the [snippets].
+     * @param category the category of the new snippet.
+     * @param title the title of the new snippet.
+     * @param body the body of the new snippet.
+     */
+    fun addSnippet(category: String, title: String, body: String) {
         val snippet = Snippet()
-        snippet.category = categoryName
+        snippet.category = category
         snippet.title = title
         snippet.body = body
 
@@ -43,14 +52,22 @@ class SnippetController : Controller() {
         snippetView.refreshCategories()
     }
 
-    fun importNew(file: File) {
+    /**
+     * Import a JSON file containing an array of snippets.
+     * @param file the file containing snippets.
+     */
+    fun import(file: File) {
         val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(file)
         snippets = arrayOfSnippets
         snippetView.workingSet = snippets
         snippetView.refreshCategories()
     }
 
-    fun importOld(file: File) {
+    /**
+     * Import a [LegacyFile] of snippets.
+     * @param file the legacy format file.
+     */
+    fun importLagacy(file: File) {
 
         val importFile = mapper.readValue<LegacyFile>(file)
 
@@ -69,6 +86,10 @@ class SnippetController : Controller() {
         snippetView.refreshCategories()
     }
 
+    /**
+     * Save an array of [Snippet]s to a file.
+     * @param file the file to save to.
+     */
     fun saveAs(file: File) {
         mapper.writeValue(file.outputStream(), snippets)
     }

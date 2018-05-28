@@ -6,5 +6,6 @@ package com.github.nwillc.ksnip.model
 
 /**
  * The preferences of the application. The [defaultFile] is the file the application will open on start.
+ * @property defaultFile the file the application will open at start.
  */
 data class Preferences(var defaultFile: String = "")

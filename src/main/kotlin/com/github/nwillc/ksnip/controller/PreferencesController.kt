@@ -10,14 +10,19 @@ import com.github.nwillc.ksnip.model.Preferences
 import tornadofx.*
 import java.io.File
 
-
+/**
+ * Controller regarding [Preferences].
+ * @property preferences the application preferences.
+ */
 class PreferencesController : Controller() {
     companion object {
-        @JvmField
-        val PREF_FILE = File(System.getProperty("user.home"), ".snippets.json")
+        /**
+         * The default location of the preferences file.
+         */
+        private val PREF_FILE = File(System.getProperty("user.home"), ".snippets.json")
     }
 
-    val mapper = ObjectMapper().registerModule(KotlinModule())
+    private val mapper = ObjectMapper().registerModule(KotlinModule())
     var preferences = Preferences()
 
     init {
@@ -26,6 +31,9 @@ class PreferencesController : Controller() {
         }
     }
 
+    /**
+     * Save the application preferences.
+     */
     fun savePreferences() {
         PREF_FILE.delete()
         PREF_FILE.createNewFile()
