@@ -13,6 +13,10 @@ import org.jetbrains.spek.api.dsl.on
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+internal val CATEGORY = "FOO"
+internal val TITLE = "BAR"
+internal val BODY = "BAZ"
+
 internal class SnippetSpek : Spek({
     given("the model object Snippet") {
         on("instantiation with default constructor") {
@@ -117,10 +121,4 @@ internal class SnippetSpek : Spek({
             }
         }
     }
-}) {
-    companion object {
-        val CATEGORY = "FOO"
-        val TITLE = "BAR"
-        val BODY = "BAZ"
-    }
-}
+})

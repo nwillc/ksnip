@@ -84,7 +84,7 @@ class SnippetsView : View() {
     /**
      * Refresh the categories displayed based on the [workingSet].
      */
-   fun refreshCategories() {
+    fun refreshCategories() {
         categories.items.clear()
         titles.items.clear()
         text.text = ""
