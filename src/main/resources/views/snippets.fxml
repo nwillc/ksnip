@@ -28,15 +28,6 @@
   <children>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
       <menus>
-            <Menu mnemonicParsing="false" text="Snippets">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#exit" text="Quit">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="Q" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-              </items>
-            </Menu>
         <Menu mnemonicParsing="false" text="File">
           <items>
                   <MenuItem mnemonicParsing="false" onAction="#openNew" text="Open...">
