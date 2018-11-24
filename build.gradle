@@ -26,21 +26,14 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             "no.tornado:tornadofx:$tornadofx_version",
             "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
 
-    testCompile "org.junit.jupiter:junit-jupiter-engine:$jupiter_version",
-            "org.junit.platform:junit-platform-runner:$junit_platform_version",
-            "org.assertj:assertj-core:$assertj_version"
-    
-    testCompile ("org.jetbrains.spek:spek-api:$spek_engine_version") {
-                exclude group: 'org.jetbrains.kotlin'
-            }
+    testCompile "org.assertj:assertj-core:$assertj_version",
+            "org.spekframework.spek2:spek-dsl-jvm:$spek2_version"
 
-    testRuntime ("org.jetbrains.spek:spek-junit-platform-engine:$spek_engine_version") {
-        exclude group: 'org.junit.platform'
-        exclude group: 'org.jetbrains.kotlin'
-    }
+    testRuntime "org.spekframework.spek2:spek-runner-junit5:$spek2_version"
 }
 
 compileKotlin {
@@ -60,12 +53,19 @@ jar {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeEngines 'spek2'
+    }
+
+    beforeTest { descriptor ->
+        def title = (descriptor =~ /Test ([^(]+).*/)[0][1]
+        logger.lifecycle("\t$title")
+    }
 }
 
 task osxApp {
     dependsOn jar
-    
+
     doLast {
         def dist = "${buildDir}/app/${project.name}.app"
 
