@@ -11,11 +11,7 @@ byproduct of working with Kotlin.
 # build
 ./gradlew clean assemble
 # Run
-java -jar build/libs/KSnip-1.0-SNAPSHOT.jar
-# Create OS X App
-./gradlew osxApp
-# Run App
-open build/app/KSnip.app 
+java -jar build/libs/KSnip*.jar
 ```
 
 [Code Documentation](https://nwillc.github.io/ksnip/kdoc/)
