@@ -13,11 +13,18 @@ import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
 import javafx.embed.swing.SwingFXUtils
 import javafx.event.ActionEvent
-import javafx.scene.control.*
+import javafx.scene.control.ChoiceBox
+import javafx.scene.control.ListView
+import javafx.scene.control.MenuBar
+import javafx.scene.control.TextArea
+import javafx.scene.control.TextField
 import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
-import tornadofx.*
+import tornadofx.FileChooserMode
+import tornadofx.View
+import tornadofx.chooseFile
+import tornadofx.selectedItem
 import java.io.File
 
 /**
@@ -254,4 +261,3 @@ class SnippetsView : View() {
         snippetCategory.text = categoryList.value
     }
 }
-

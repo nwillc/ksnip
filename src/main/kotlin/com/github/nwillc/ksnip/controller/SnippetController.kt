@@ -14,7 +14,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
-import tornadofx.*
+import tornadofx.Controller
 import java.io.File
 
 /**

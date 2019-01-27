@@ -7,7 +7,9 @@ package com.github.nwillc.ksnip.view
 import com.github.nwillc.ksnip.controller.PreferencesController
 import javafx.scene.control.TextField
 import javafx.scene.layout.VBox
-import tornadofx.*
+import tornadofx.FileChooserMode
+import tornadofx.View
+import tornadofx.chooseFile
 
 /**
  * A view managing the application preferences panel.

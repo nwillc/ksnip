@@ -8,7 +8,7 @@ val spek2_version = "2.0.0-rc.1"
 val tornadofx_version = "1.7.18"
 
 plugins {
-    kotlin("jvm") version "1.3.20"
+    kotlin("jvm") version "1.3.11"
     id("com.github.nwillc.vplugin") version "2.3.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2"
@@ -46,7 +46,6 @@ tasks {
         manifest.attributes["Main-Class"] = "com.github.nwillc.ksnip.SnippetsApp"
         manifest.attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
         from(Callable { configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) } })
-
     }
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = jvmTargetVersion

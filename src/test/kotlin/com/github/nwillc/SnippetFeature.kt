@@ -13,7 +13,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
-
 /*
  * Copyright 2018 nwillc@gmail.com
  *
@@ -27,8 +26,6 @@ internal val TITLE = "BAR"
 internal val BODY = "BAZ"
 
 object SnippetFeature : Spek({
-
-
     Feature("Snippet") {
         Scenario("Getter/Setters") {
             lateinit var snippet: Snippet
@@ -64,14 +61,14 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY + BODY
             }
-            Then("they should be equal"){
+            Then("they should be equal") {
                 assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
             }
-            Given("given two snippets"){
+            Given("given two snippets") {
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("their categories have different case"){
+            When("their categories have different case") {
                 snippet1.category = CATEGORY
                 snippet2.category = CATEGORY.toLowerCase()
                 snippet1.title = TITLE
@@ -79,14 +76,14 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should be equal"){
+            Then("they should be equal") {
                 assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
             }
-            Given("given two snippets"){
+            Given("given two snippets") {
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("their titles have different case"){
+            When("their titles have different case") {
                 snippet1.category = CATEGORY
                 snippet2.category = CATEGORY
                 snippet1.title = TITLE
@@ -94,7 +91,7 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should be equal"){
+            Then("they should be equal") {
                 assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
             }
         }
@@ -105,7 +102,7 @@ object SnippetFeature : Spek({
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("the first categories is lexicographically less"){
+            When("the first categories is lexicographically less") {
                 snippet1.category = "a$CATEGORY"
                 snippet2.category = CATEGORY
                 snippet1.title = TITLE
@@ -113,7 +110,7 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should compare less than 0"){
+            Then("they should compare less than 0") {
                 assertThat(snippet1.compareTo(snippet2)).isLessThan(0)
             }
 
@@ -121,7 +118,7 @@ object SnippetFeature : Spek({
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("the second categories is lexicographically less"){
+            When("the second categories is lexicographically less") {
                 snippet1.category = CATEGORY
                 snippet2.category = "a$CATEGORY"
                 snippet1.title = TITLE
@@ -129,7 +126,7 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should compare greater than 0"){
+            Then("they should compare greater than 0") {
                 assertThat(snippet1.compareTo(snippet2)).isGreaterThan(0)
             }
 
@@ -137,7 +134,7 @@ object SnippetFeature : Spek({
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("the first title is lexicographically less"){
+            When("the first title is lexicographically less") {
                 snippet1.category = CATEGORY
                 snippet2.category = CATEGORY
                 snippet1.title = "a$TITLE"
@@ -145,7 +142,7 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should compare less than 0"){
+            Then("they should compare less than 0") {
                 assertThat(snippet1.compareTo(snippet2)).isLessThan(0)
             }
 
@@ -153,7 +150,7 @@ object SnippetFeature : Spek({
                 snippet1 = Snippet()
                 snippet2 = Snippet()
             }
-            When("the second title is lexicographically less"){
+            When("the second title is lexicographically less") {
                 snippet1.category = CATEGORY
                 snippet2.category = CATEGORY
                 snippet1.title = TITLE
@@ -161,7 +158,7 @@ object SnippetFeature : Spek({
                 snippet1.body = BODY
                 snippet2.body = BODY
             }
-            Then("they should compare greater than 0"){
+            Then("they should compare greater than 0") {
                 assertThat(snippet1.compareTo(snippet2)).isGreaterThan(0)
             }
         }

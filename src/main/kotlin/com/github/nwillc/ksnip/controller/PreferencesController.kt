@@ -7,7 +7,8 @@ package com.github.nwillc.ksnip.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.nwillc.ksnip.model.Preferences
-import tornadofx.*
+import tornadofx.Controller
+
 import java.io.File
 
 /**
@@ -34,7 +35,7 @@ class PreferencesController : Controller() {
     fun savePreferences() {
         PREF_FILE.delete()
         PREF_FILE.createNewFile()
-        val outputStream = PREF_FILE.outputStream();
+        val outputStream = PREF_FILE.outputStream()
         mapper.writeValue(outputStream, preferences)
     }
 }
