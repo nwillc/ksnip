@@ -31,9 +31,10 @@ dependencies {
     implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
     implementation("no.tornado:tornadofx:$tornadofx_version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+    implementation("org.slf4j:jul-to-slf4j:$slf4jApiVersion")
 
     runtime("org.tinylog:slf4j-binding:$tinyLogVersion")
-    
+
     testImplementation("org.assertj:assertj-core:$assertj_version")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek2_version")
 

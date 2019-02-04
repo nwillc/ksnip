@@ -16,6 +16,7 @@
 package com.github.nwillc.ksnip
 
 import com.github.nwillc.ksnip.view.SnippetsView
+import org.slf4j.bridge.SLF4JBridgeHandler
 import tornadofx.App
 
 /**
@@ -23,5 +24,11 @@ import tornadofx.App
  * @property primaryView the primary application view.
  */
 class SnippetsApp : App() {
+    companion object {
+        init {
+            SLF4JBridgeHandler.removeHandlersForRootLogger()
+            SLF4JBridgeHandler.install()
+        }
+    }
     override val primaryView = SnippetsView::class
 }
