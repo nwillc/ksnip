@@ -13,7 +13,7 @@ plugins {
     id("com.github.nwillc.vplugin") version "2.3.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2"
-    id("org.jmailen.kotlinter") version "1.20.1"
+    id("org.jlleitschuh.gradle.ktlint") version "7.0.0"
 }
 
 group = "com.github.nwillc"
