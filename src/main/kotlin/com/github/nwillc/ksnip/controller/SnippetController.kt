@@ -21,9 +21,11 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
+import org.slf4j.LoggerFactory
 import tornadofx.Controller
 import java.io.File
 
+private val LOGGER = LoggerFactory.getLogger(SnippetController::class.java)
 /**
  * Application controller for operations regarding [Snippet]s.
  * @property snippets the working list of snippets.
@@ -78,7 +80,7 @@ class SnippetController : Controller() {
 
         val importFile = mapper.readValue<LegacyFile>(file)
 
-        println(importFile)
+        LOGGER.info("Importing file: $importFile")
 
         importFile.snippets.forEach { s ->
             val snippet = Snippet()
