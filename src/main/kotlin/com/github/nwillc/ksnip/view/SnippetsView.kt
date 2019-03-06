@@ -37,7 +37,6 @@ import java.io.File
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.Alert
 
-
 /**
  * The view managing the snippets UI.
  * @property workingSet the set of snippets being displayed.
