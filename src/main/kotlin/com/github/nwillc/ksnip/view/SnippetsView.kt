@@ -15,6 +15,7 @@
 
 package com.github.nwillc.ksnip.view
 
+import com.github.nwillc.ksnip.SnippetsApp
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
@@ -33,6 +34,9 @@ import tornadofx.View
 import tornadofx.chooseFile
 import tornadofx.selectedItem
 import java.io.File
+import javafx.scene.control.Alert.AlertType
+import javafx.scene.control.Alert
+
 
 /**
  * The view managing the snippets UI.
@@ -228,6 +232,16 @@ class SnippetsView : View() {
      */
     fun openPreferences() {
         preferencesView.openModal()
+    }
+
+    fun openAbout() {
+        println("about")
+        val alert = Alert(AlertType.INFORMATION)
+        alert.title = "About KSnips"
+        val version = SnippetsApp::class.java.`package`!!.implementationVersion
+        alert.headerText = "About KSnips"
+        alert.contentText = "Version: $version"
+        alert.show()
     }
 
     /**

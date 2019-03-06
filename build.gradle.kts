@@ -1,12 +1,13 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val assertj_version = "3.12.1"
-val jackson_version = "2.9.8"
+val assertjVersion = "3.12.1"
+val jacksonVersion = "2.9.8"
+val mainClassName = "com.github.nwillc.ksnip.SnippetsApp"
 val slf4jApiVersion = "1.7.25"
-val spek2_version = "2.0.1"
+val spek2Version = "2.0.1"
 val tinyLogVersion = "1.3.6"
-val tornadofx_version = "1.7.18"
+val tornadofxVersion = "1.7.18"
 
 plugins {
     kotlin("jvm") version "1.3.21"
@@ -17,7 +18,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "1.1.5"
+version = "1.2.0"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -29,16 +30,16 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
-    implementation("no.tornado:tornadofx:$tornadofx_version")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+    implementation("no.tornado:tornadofx:$tornadofxVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("org.slf4j:jul-to-slf4j:$slf4jApiVersion")
 
     runtime("org.tinylog:slf4j-binding:$tinyLogVersion")
 
-    testImplementation("org.assertj:assertj-core:$assertj_version")
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek2_version")
+    testImplementation("org.assertj:assertj-core:$assertjVersion")
+    testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek2Version")
 
-    testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek2_version")
+    testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek2Version")
 }
 
 detekt {
@@ -48,8 +49,9 @@ detekt {
 
 tasks {
     named<Jar>("jar") {
-        manifest.attributes["Main-Class"] = "com.github.nwillc.ksnip.SnippetsApp"
+        manifest.attributes["Main-Class"] = mainClassName
         manifest.attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
+        manifest.attributes["Implementation-Version"] = project.version
         from(Callable { configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) } })
     }
     withType<KotlinCompile> {
@@ -89,7 +91,7 @@ tasks {
             "-srcfiles", "${project.name}-${project.version}.jar",
             "-outdir", "$buildDir/release",
             "-outfile", "${project.name}.app",
-            "-appclass", "com.github.nwillc.ksnip.SnippetsApp",
+            "-appclass", mainClassName,
             "-name", project.name, "-BappVersion=${project.version}", "-Bicon=$buildDir/release/${project.name}.icns",
             "-title", project.name,
             "-nosign"
