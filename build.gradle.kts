@@ -1,23 +1,23 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val assertj_version = "3.11.1"
+val assertj_version = "3.12.1"
 val jackson_version = "2.9.8"
 val slf4jApiVersion = "1.7.25"
-val spek2_version = "2.0.0"
-val tinyLogVersion = "1.3.5"
+val spek2_version = "2.0.1"
+val tinyLogVersion = "1.3.6"
 val tornadofx_version = "1.7.18"
 
 plugins {
-    kotlin("jvm") version "1.3.20"
+    kotlin("jvm") version "1.3.21"
     id("com.github.nwillc.vplugin") version "2.3.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2"
-    id("org.jlleitschuh.gradle.ktlint") version "7.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "7.1.0"
 }
 
 group = "com.github.nwillc"
-version = "1.1.4"
+version = "1.1.5"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -72,5 +72,27 @@ tasks {
         outputFormat = "html"
         includeNonPublic = false
         outputDirectory = "$buildDir/dokka"
+    }
+    register<Copy>("prepApp"){
+        dependsOn("assemble")
+        from("src/main/app")
+        from("build/libs/${project.name}-${project.version}.jar")
+        into("build/release")
+    }
+    register<Exec>("osxApp") {
+        dependsOn("prepApp")
+        commandLine = listOf(
+            "javapackager",
+            "-deploy",
+            "-native", "image",
+            "-srcdir", "$buildDir/release",
+            "-srcfiles", "${project.name}-${project.version}.jar",
+            "-outdir", "$buildDir/release",
+            "-outfile", "${project.name}.app",
+            "-appclass", "com.github.nwillc.ksnip.SnippetsApp",
+            "-name", project.name, "-BappVersion=${project.version}", "-Bicon=$buildDir/release/${project.name}.icns",
+            "-title", project.name,
+            "-nosign"
+        )
     }
 }
