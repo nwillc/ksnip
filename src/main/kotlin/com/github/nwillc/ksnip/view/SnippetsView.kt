@@ -185,6 +185,7 @@ class SnippetsView : View() {
             .filter { it.category.equals(selectedCategory) }
             .filter { it.title.equals(selectedTitle) }
             .forEach { it.body = text.text }
+        save()
     }
 
     /**
@@ -200,6 +201,7 @@ class SnippetsView : View() {
         }
         snippetController.snippets.remove(snippet)
         search()
+        save()
     }
 
     /**
@@ -210,6 +212,7 @@ class SnippetsView : View() {
         snippetCategory.text = ""
         snippetTitle.text = ""
         snippetBody.text = ""
+        save()
     }
 
     /**
