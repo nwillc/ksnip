@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "1.3.0"
+version = "1.3.1-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -49,9 +49,11 @@ detekt {
 
 tasks {
     named<Jar>("jar") {
-        manifest.attributes["Main-Class"] = mainClassName
-        manifest.attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
-        manifest.attributes["Implementation-Version"] = project.version
+        with(manifest) {
+            attributes["Main-Class"] = mainClassName
+            attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
+            attributes["Implementation-Version"] = project.version
+        }
         from(Callable { configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) } })
     }
     withType<KotlinCompile> {
@@ -62,7 +64,7 @@ tasks {
             includeEngines = mutableSetOf("spek2")
         }
         testLogging.showStandardStreams = true
-        beforeTest(KotlinClosure1<TestDescriptor, Unit>({ logger.lifecycle("    Running ${this.className}.${this.name}") }))
+        beforeTest(KotlinClosure1<TestDescriptor, Unit>({ logger.lifecycle("\t${this.name}") }))
         afterSuite(KotlinClosure2<TestDescriptor, TestResult, Unit>({ descriptor, result ->
             if (descriptor.parent == null) {
                 logger.lifecycle("Tests run: ${result.testCount}, Failures: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}")
@@ -75,7 +77,7 @@ tasks {
         includeNonPublic = false
         outputDirectory = "$buildDir/dokka"
     }
-    register<Copy>("prepApp"){
+    register<Copy>("prepApp") {
         dependsOn("assemble")
         from("src/main/app")
         from("build/libs/${project.name}-${project.version}.jar")

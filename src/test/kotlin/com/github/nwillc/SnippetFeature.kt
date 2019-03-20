@@ -29,15 +29,15 @@ object SnippetFeature : Spek({
     Feature("Snippet") {
         Scenario("Getter/Setters") {
             lateinit var snippet: Snippet
-            When("instantiated with default constructor") {
+            Given("a snipppet instantiated with default constructor") {
                 snippet = Snippet()
             }
-            Then("it should have sane default values") {
+            When("it has default blank values") {
                 assertThat(snippet.category).isBlank()
                 assertThat(snippet.title).isBlank()
                 assertThat(snippet.body).isBlank()
             }
-            And("getter and setters should work") {
+            Then("getter and setters should work") {
                 snippet.category = CATEGORY
                 assertThat(snippet.category).isEqualTo(CATEGORY)
                 snippet.title = TITLE
@@ -64,6 +64,7 @@ object SnippetFeature : Spek({
             Then("they should be equal") {
                 assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
             }
+
             Given("given two snippets") {
                 snippet1 = Snippet()
                 snippet2 = Snippet()
@@ -79,6 +80,7 @@ object SnippetFeature : Spek({
             Then("they should be equal") {
                 assertThat(snippet1.compareTo(snippet2)).isEqualTo(0)
             }
+
             Given("given two snippets") {
                 snippet1 = Snippet()
                 snippet2 = Snippet()
