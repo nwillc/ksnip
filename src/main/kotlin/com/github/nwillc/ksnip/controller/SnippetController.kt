@@ -21,11 +21,12 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.view.SnippetsView
-import org.slf4j.LoggerFactory
+import com.github.nwillc.slf4jkext.getLogger
 import tornadofx.Controller
 import java.io.File
 
-private val LOGGER = LoggerFactory.getLogger(SnippetController::class.java)
+private val LOGGER = getLogger<SnippetController>()
+
 /**
  * Application controller for operations regarding [Snippet]s.
  * @property snippets the working list of snippets.

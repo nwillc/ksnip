@@ -22,7 +22,7 @@ package com.github.nwillc.ksnip.model
  */
 data class LegacyFile(
     var categories: Array<LegacyCategory> = emptyArray(),
-    var snippets: Array<LagacySnippet> = emptyArray()
+    var snippets: Array<LegacySnippet> = emptyArray()
 )
 
 /**
@@ -42,7 +42,7 @@ data class LegacyCategory(
  * @property title the snippet's title.
  * @property body the snippet's body.
  */
-data class LagacySnippet(
+data class LegacySnippet(
     var key: String = "",
     var category: String = "",
     var title: String = "",

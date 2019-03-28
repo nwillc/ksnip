@@ -1,7 +1,7 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val assertjVersion = "3.12.1"
+val assertjVersion = "3.12.2"
 val jacksonVersion = "2.9.8"
 val mainClassName = "com.github.nwillc.ksnip.SnippetsApp"
 val slf4jApiVersion = "1.7.25"
@@ -12,13 +12,13 @@ val tornadofxVersion = "1.7.18"
 plugins {
     kotlin("jvm") version "1.3.21"
     id("com.github.nwillc.vplugin") version "2.3.0"
-    id("org.jetbrains.dokka") version "0.9.17"
+    id("org.jetbrains.dokka") version "0.9.18"
     id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2"
-    id("org.jlleitschuh.gradle.ktlint") version "7.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "7.2.1"
 }
 
 group = "com.github.nwillc"
-version = "1.3.1-SNAPSHOT"
+version = "1.3.1"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -33,6 +33,7 @@ dependencies {
     implementation("no.tornado:tornadofx:$tornadofxVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("org.slf4j:jul-to-slf4j:$slf4jApiVersion")
+    implementation("$group:slf4jkext:1.1.0")
 
     runtime("org.tinylog:slf4j-binding:$tinyLogVersion")
 
