@@ -1,24 +1,27 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val assertjVersion = "3.12.2"
-val jacksonVersion = "2.9.8"
+val assertjVersion = "3.15.0"
+val jacksonVersion = "2.11.0.rc1"
+val jacocoToolVersion: String by project
+val slf4jkextVersion = "1.1.1"
 val mainClassName = "com.github.nwillc.ksnip.SnippetsApp"
 val slf4jApiVersion = "1.7.25"
-val spek2Version = "2.0.1"
+val spek2Version = "2.0.10"
 val tinyLogVersion = "1.3.6"
-val tornadofxVersion = "1.7.18"
+val tornadofxVersion = "1.7.20"
 
 plugins {
-    kotlin("jvm") version "1.3.21"
-    id("com.github.nwillc.vplugin") version "2.3.0"
-    id("org.jetbrains.dokka") version "0.9.18"
-    id("io.gitlab.arturbosch.detekt") version "1.0.0.RC9.2"
-    id("org.jlleitschuh.gradle.ktlint") version "7.2.1"
+    jacoco
+    kotlin("jvm") version "1.3.72"
+    id("com.github.nwillc.vplugin") version "3.0.4"
+    id("org.jetbrains.dokka") version "0.10.1"
+    id("io.gitlab.arturbosch.detekt") version "1.8.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 group = "com.github.nwillc"
-version = "1.3.1"
+version = "1.3.2"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -33,19 +36,21 @@ dependencies {
     implementation("no.tornado:tornadofx:$tornadofxVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("org.slf4j:jul-to-slf4j:$slf4jApiVersion")
-    implementation("$group:slf4jkext:1.1.0")
+    implementation("$group:slf4jkext:$slf4jkextVersion")
 
-    runtime("org.tinylog:slf4j-binding:$tinyLogVersion")
+    runtimeOnly("org.tinylog:slf4j-binding:$tinyLogVersion")
 
     testImplementation("org.assertj:assertj-core:$assertjVersion")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek2Version")
 
-    testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek2Version")
+    testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:$spek2Version")
 }
 
 detekt {
-    input = files("src/main/kotlin")
-    filters = ".*/build/.*"
+}
+
+jacoco {
+    toolVersion = jacocoToolVersion
 }
 
 tasks {
@@ -64,18 +69,13 @@ tasks {
         useJUnitPlatform {
             includeEngines = mutableSetOf("spek2")
         }
-        testLogging.showStandardStreams = true
-        beforeTest(KotlinClosure1<TestDescriptor, Unit>({ logger.lifecycle("\t${this.name}") }))
-        afterSuite(KotlinClosure2<TestDescriptor, TestResult, Unit>({ descriptor, result ->
-            if (descriptor.parent == null) {
-                logger.lifecycle("Tests run: ${result.testCount}, Failures: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}")
-            }
-            Unit
-        }))
+        testLogging {
+            showStandardStreams = true
+            events("passed", "failed", "skipped")
+        }
     }
     withType<DokkaTask> {
         outputFormat = "html"
-        includeNonPublic = false
         outputDirectory = "$buildDir/dokka"
     }
     register<Copy>("prepApp") {

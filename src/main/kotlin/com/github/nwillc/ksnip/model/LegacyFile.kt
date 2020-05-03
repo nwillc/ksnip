@@ -23,7 +23,25 @@ package com.github.nwillc.ksnip.model
 data class LegacyFile(
     var categories: Array<LegacyCategory> = emptyArray(),
     var snippets: Array<LegacySnippet> = emptyArray()
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as LegacyFile
+
+        if (!categories.contentEquals(other.categories)) return false
+        if (!snippets.contentEquals(other.snippets)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = categories.contentHashCode()
+        result = 31 * result + snippets.contentHashCode()
+        return result
+    }
+}
 
 /**
  * Data class supporting legacy Category format.

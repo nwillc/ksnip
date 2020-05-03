@@ -257,7 +257,7 @@ class SnippetsView : View() {
      * Save the snippets to another file.
      */
     fun saveAs() {
-        val list = chooseFile("Save As", JSON_FILTER, FileChooserMode.Save)
+        val list = chooseFile(title = "Save As", filters = JSON_FILTER, mode = FileChooserMode.Save)
         snippetController.saveAs(list[0])
     }
 
@@ -265,7 +265,7 @@ class SnippetsView : View() {
      * Open a new style file.
      */
     fun openNew() {
-        val list = chooseFile("Import New", JSON_FILTER, FileChooserMode.Single)
+        val list = chooseFile(title = "Import New", filters = JSON_FILTER, mode = FileChooserMode.Single)
         snippetController.import(list[0])
     }
 
@@ -273,7 +273,7 @@ class SnippetsView : View() {
      * Open a legacy file.
      */
     fun openOld() {
-        val list = chooseFile("Import Old", JSON_FILTER, FileChooserMode.Single)
+        val list = chooseFile(title = "Import Old", filters = JSON_FILTER, mode = FileChooserMode.Single)
         snippetController.importLagacy(list[0])
     }
 
