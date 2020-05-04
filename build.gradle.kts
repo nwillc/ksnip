@@ -2,7 +2,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val assertjVersion = "3.15.0"
-val jacksonVersion = "2.11.0.rc1"
+val jacksonVersion = "2.11.0"
 val jacocoToolVersion: String by project
 val slf4jkextVersion = "1.1.1"
 val mainClassName = "com.github.nwillc.ksnip.SnippetsApp"
@@ -14,7 +14,8 @@ val tornadofxVersion = "1.7.20"
 plugins {
     jacoco
     kotlin("jvm") version "1.3.72"
-    id("com.github.nwillc.vplugin") version "3.0.4"
+    kotlin("plugin.serialization") version "1.3.72"
+    id("com.github.nwillc.vplugin") version "3.0.5"
     id("org.jetbrains.dokka") version "0.10.1"
     id("io.gitlab.arturbosch.detekt") version "1.8.0"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
@@ -32,6 +33,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
     implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
     implementation("no.tornado:tornadofx:$tornadofxVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
@@ -42,8 +44,10 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:$assertjVersion")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek2Version")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.6.1")
 
     testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:$spek2Version")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.1")
 }
 
 detekt {
@@ -67,7 +71,7 @@ tasks {
     }
     withType<Test> {
         useJUnitPlatform {
-            includeEngines = mutableSetOf("spek2")
+            includeEngines = mutableSetOf("spek2","junit-jupiter")
         }
         testLogging {
             showStandardStreams = true

@@ -35,12 +35,12 @@ class SnippetController : Controller() {
     private val snippetView: SnippetsView by inject()
     private val mapper = ObjectMapper().registerModule(KotlinModule())
     private val preferencesController: PreferencesController by inject()
-    var snippets = ArrayList<Snippet>()
+    var snippets: MutableList<Snippet> = mutableListOf()
 
     init {
         if (preferencesController.preferences.defaultFile.isNotEmpty()) {
             val arrayOfSnippets =
-                mapper.readValue<ArrayList<Snippet>>(File(preferencesController.preferences.defaultFile))
+                mapper.readValue<MutableList<Snippet>>(File(preferencesController.preferences.defaultFile))
             snippets = arrayOfSnippets
         }
     }
@@ -67,7 +67,7 @@ class SnippetController : Controller() {
      * @param file the file containing snippets.
      */
     fun import(file: File) {
-        val arrayOfSnippets = mapper.readValue<ArrayList<Snippet>>(file)
+        val arrayOfSnippets = mapper.readValue<MutableList<Snippet>>(file)
         snippets = arrayOfSnippets
         snippetView.workingSet = snippets
         snippetView.refreshCategories()

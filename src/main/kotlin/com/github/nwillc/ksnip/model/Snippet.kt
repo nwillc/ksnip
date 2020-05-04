@@ -15,6 +15,8 @@
 
 package com.github.nwillc.ksnip.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * Data class representing a snippet. A snippet is comprised of a category, a title and its body.
  *
@@ -22,6 +24,7 @@ package com.github.nwillc.ksnip.model
  * @property title the title of the snippet
  * @property body the body of the snippet
  */
+@Serializable
 data class Snippet(
     var category: String = "",
     var title: String = "",
