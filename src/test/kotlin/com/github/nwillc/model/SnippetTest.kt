@@ -21,9 +21,6 @@ import kotlinx.serialization.json.JsonConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-/**
- *
- */
 class SnippetTest {
     @Test
     fun `should be able to serialize a snippet with Kotlin Serialization`() {
