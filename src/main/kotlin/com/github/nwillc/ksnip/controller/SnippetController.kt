@@ -15,12 +15,11 @@
 
 package com.github.nwillc.ksnip.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
+import com.github.nwillc.ksnip.readSnippets
 import com.github.nwillc.ksnip.view.SnippetsView
+import com.github.nwillc.ksnip.writeSnippets
 import com.github.nwillc.slf4jkext.getLogger
 import tornadofx.Controller
 import java.io.File
@@ -33,15 +32,12 @@ private val LOGGER = getLogger<SnippetController>()
  */
 class SnippetController : Controller() {
     private val snippetView: SnippetsView by inject()
-    private val mapper = ObjectMapper().registerModule(KotlinModule())
     private val preferencesController: PreferencesController by inject()
     var snippets: MutableList<Snippet> = mutableListOf()
 
     init {
         if (preferencesController.preferences.defaultFile.isNotEmpty()) {
-            val arrayOfSnippets =
-                mapper.readValue<MutableList<Snippet>>(File(preferencesController.preferences.defaultFile))
-            snippets = arrayOfSnippets
+            snippets = File(preferencesController.preferences.defaultFile).readSnippets().toMutableList()
         }
     }
 
@@ -67,31 +63,7 @@ class SnippetController : Controller() {
      * @param file the file containing snippets.
      */
     fun import(file: File) {
-        val arrayOfSnippets = mapper.readValue<MutableList<Snippet>>(file)
-        snippets = arrayOfSnippets
-        snippetView.workingSet = snippets
-        snippetView.refreshCategories()
-    }
-
-    /**
-     * Import a [LegacyFile] of snippets.
-     * @param file the legacy format file.
-     */
-    fun importLagacy(file: File) {
-
-        val importFile = mapper.readValue<LegacyFile>(file)
-
-        LOGGER.info("Importing file: $importFile")
-
-        importFile.snippets.forEach { s ->
-            val snippet = Snippet()
-            snippet.title = s.title
-            snippet.body = s.body
-
-            val category = importFile.categories.filter { c -> c.key.equals(s.category) }.first()
-            snippet.category = category.name
-            snippets.add(snippet)
-        }
+        snippets = file.readSnippets().toMutableList()
         snippetView.workingSet = snippets
         snippetView.refreshCategories()
     }
@@ -101,6 +73,6 @@ class SnippetController : Controller() {
      * @param file the file to save to.
      */
     fun saveAs(file: File) {
-        mapper.writeValue(file.outputStream(), snippets)
+        file.writeSnippets(snippets)
     }
 }

@@ -13,13 +13,22 @@
  * ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.github.nwillc.ksnip.model
+package com.github.nwillc.ksnip
 
-import kotlinx.serialization.Serializable
+import com.github.nwillc.ksnip.model.Snippet
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
-/**
- * The preferences of the application. The [defaultFile] is the file the application will open on start.
- * @property defaultFile the file the application will open at start.
- */
-@Serializable
-data class Preferences(var defaultFile: String = "")
+internal class FileExtKtTest {
+    @Test
+    fun `should be able to write a snippets list`() {
+        val tempFile = createTempFile()
+        val snippets = mutableListOf<Snippet>().apply {
+            add(Snippet("one", "two", "three"))
+            add(Snippet("one", "four", "five"))
+        }
+        tempFile.writeSnippets(snippets)
+        val read = tempFile.readSnippets()
+        assertThat(read).containsAll(snippets)
+    }
+}

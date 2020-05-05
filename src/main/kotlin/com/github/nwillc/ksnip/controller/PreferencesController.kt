@@ -15,9 +15,9 @@
 
 package com.github.nwillc.ksnip.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.nwillc.ksnip.model.Preferences
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import tornadofx.Controller
 
 import java.io.File
@@ -31,12 +31,11 @@ class PreferencesController : Controller() {
         private val prefFile = File(System.getProperty("user.home"), ".snippets.json")
     }
 
-    private val mapper = ObjectMapper().registerModule(KotlinModule())
     var preferences = Preferences()
 
     init {
         if (prefFile.canRead()) {
-            preferences = mapper.readValue<Preferences>(prefFile, Preferences::class.java)
+            preferences = Json(JsonConfiguration.Stable).parse(Preferences.serializer(), prefFile.readText())
         }
     }
 
@@ -46,7 +45,6 @@ class PreferencesController : Controller() {
     fun savePreferences() {
         prefFile.delete()
         prefFile.createNewFile()
-        val outputStream = prefFile.outputStream()
-        mapper.writeValue(outputStream, preferences)
+        prefFile.writeText(Json(JsonConfiguration.Stable).stringify(Preferences.serializer(), preferences))
     }
 }

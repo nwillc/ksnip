@@ -37,7 +37,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "1.3.2"
+version = "1.4.0"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -51,7 +51,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
     implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
     implementation("no.tornado:tornadofx:$tornadofxVersion")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("org.slf4j:jul-to-slf4j:$slf4jApiVersion")
     implementation("$group:slf4jkext:$slf4jkextVersion")
 

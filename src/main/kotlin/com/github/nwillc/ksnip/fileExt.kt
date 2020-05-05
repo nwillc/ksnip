@@ -13,13 +13,16 @@
  * ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.github.nwillc.ksnip.model
+package com.github.nwillc.ksnip
 
-import kotlinx.serialization.Serializable
+import com.github.nwillc.ksnip.model.Snippet
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
+import java.io.File
 
-/**
- * The preferences of the application. The [defaultFile] is the file the application will open on start.
- * @property defaultFile the file the application will open at start.
- */
-@Serializable
-data class Preferences(var defaultFile: String = "")
+fun File.writeSnippets(snippets: List<Snippet>) =
+    writeText(Json(JsonConfiguration.Stable).stringify(ListSerializer(Snippet.serializer()), snippets))
+
+fun File.readSnippets(): List<Snippet> =
+    Json(JsonConfiguration.Stable).parse(ListSerializer(Snippet.serializer()), readText())

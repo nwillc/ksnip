@@ -21,11 +21,8 @@ import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
 import javafx.embed.swing.SwingFXUtils
 import javafx.event.ActionEvent
-import javafx.scene.control.ChoiceBox
-import javafx.scene.control.ListView
-import javafx.scene.control.MenuBar
-import javafx.scene.control.TextArea
-import javafx.scene.control.TextField
+import javafx.scene.control.*
+import javafx.scene.control.Alert.AlertType
 import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
@@ -34,8 +31,7 @@ import tornadofx.View
 import tornadofx.chooseFile
 import tornadofx.selectedItem
 import java.io.File
-import javafx.scene.control.Alert.AlertType
-import javafx.scene.control.Alert
+import kotlin.system.exitProcess
 
 /**
  * The view managing the snippets UI.
@@ -122,9 +118,8 @@ class SnippetsView : View() {
     /**
      * Exit the application.
      */
-    fun exit() {
-        System.exit(0)
-    }
+    fun exit(): Nothing =
+        exitProcess(0)
 
     /**
      * Focus on the find field.
@@ -232,9 +227,8 @@ class SnippetsView : View() {
     /**
      * Open the preferences panel.
      */
-    fun openPreferences() {
+    fun openPreferences() =
         preferencesView.openModal()
-    }
 
     fun openAbout() {
         println("about")
@@ -249,32 +243,21 @@ class SnippetsView : View() {
     /**
      * Save the snippets to the default file.
      */
-    fun save() {
+    fun save() =
         snippetController.saveAs(File(preferencesController.preferences.defaultFile))
-    }
 
     /**
      * Save the snippets to another file.
      */
-    fun saveAs() {
-        val list = chooseFile(title = "Save As", filters = JSON_FILTER, mode = FileChooserMode.Save)
-        snippetController.saveAs(list[0])
+    fun saveAs() = chooseFile(title = "Save As", filters = JSON_FILTER, mode = FileChooserMode.Save).let {
+        if (it.isNotEmpty()) snippetController.saveAs(it[0])
     }
 
     /**
      * Open a new style file.
      */
-    fun openNew() {
-        val list = chooseFile(title = "Import New", filters = JSON_FILTER, mode = FileChooserMode.Single)
-        snippetController.import(list[0])
-    }
-
-    /**
-     * Open a legacy file.
-     */
-    fun openOld() {
-        val list = chooseFile(title = "Import Old", filters = JSON_FILTER, mode = FileChooserMode.Single)
-        snippetController.importLagacy(list[0])
+    fun openNew() = chooseFile(title = "Import New", filters = JSON_FILTER, mode = FileChooserMode.Single).let {
+        if (it.isNotEmpty()) snippetController.import(it[0])
     }
 
     /**

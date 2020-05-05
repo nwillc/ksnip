@@ -16,6 +16,7 @@
 package com.github.nwillc.model
 
 import com.github.nwillc.ksnip.model.Snippet
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import org.assertj.core.api.Assertions.assertThat
@@ -28,5 +29,20 @@ class SnippetTest {
         val json = Json(JsonConfiguration.Stable).stringify(Snippet.serializer(), snippet)
         val expected = """{"category":"one","title":"two","body":"three"}"""
         assertThat(json).isEqualTo(expected)
+    }
+
+    @Test
+    fun `create snippets file`() {
+        val tempFile = createTempFile()
+        assertThat(tempFile.exists()).isTrue()
+        val snippets = mutableListOf<Snippet>().apply {
+            add(Snippet("one", "two", "three"))
+            add(Snippet("one", "four", "five"))
+        }
+
+        val json = Json(JsonConfiguration.Stable).stringify(ListSerializer(Snippet.serializer()), snippets)
+        println(json)
+        tempFile.writeText(json)
+        println(tempFile.readText())
     }
 }

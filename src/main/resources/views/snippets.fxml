@@ -59,9 +59,7 @@
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#openOld" text="Import…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#openPreferences" text="Preferences...">
+              <MenuItem mnemonicParsing="false" onAction="#openPreferences" text="Preferences...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="COMMA" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                      </accelerator>
