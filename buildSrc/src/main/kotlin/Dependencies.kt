@@ -34,6 +34,7 @@ object PluginVersions {
 
 object ToolVersions {
     const val jacoco = "0.8.3"
+    const val jfx = "14.0.1"
     const val ktlint = "0.37.0"
 }
 

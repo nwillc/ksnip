@@ -15,6 +15,7 @@
 
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     jacoco
@@ -67,19 +68,19 @@ jacoco {
 }
 
 javafx {
-    version = "11.0.2"
+    version = ToolVersions.jfx
     modules = arrayListOf("javafx.controls", "javafx.graphics", "javafx.fxml")
 }
 
 tasks {
-    named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    named<BootJar>("bootJar") {
         with(manifest) {
             attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
             attributes["Implementation-Version"] = project.version
         }
     }
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
     }
     withType<Test> {
         useJUnitPlatform {

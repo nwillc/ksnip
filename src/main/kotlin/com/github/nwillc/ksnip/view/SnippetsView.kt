@@ -53,7 +53,6 @@ class SnippetsView : View() {
     private val snippetCategory: TextField by fxid()
     private val snippetTitle: TextField by fxid()
     private val snippetBody: TextArea by fxid()
-    private val menuBar: MenuBar by fxid()
 
     // Controllers
     private val snippetController: SnippetController by inject()
