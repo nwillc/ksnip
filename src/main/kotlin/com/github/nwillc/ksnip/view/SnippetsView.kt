@@ -19,11 +19,8 @@ import com.github.nwillc.ksnip.SnippetsApp
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
-import javafx.embed.swing.SwingFXUtils
 import javafx.event.ActionEvent
 import javafx.scene.control.*
-import javafx.scene.control.Alert.AlertType
-import javafx.scene.image.Image
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import tornadofx.FileChooserMode
@@ -85,14 +82,14 @@ class SnippetsView : View() {
 
         menuBar.isUseSystemMenuBar = true
         // Hacky OS X dock icon assignment, done with reflection so it can build with any JDK but run on OS X.
-        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
-        val image = Image(asStream)
-        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
-        val applicationClass = Class.forName("com.apple.eawt.Application")
-        val method = applicationClass.getMethod("getApplication")
-        val application = method.invoke(applicationClass)
-        val setDockImage = application.javaClass.getMethod("setDockIconImage", java.awt.Image::class.java)
-        setDockImage.invoke(application, bufferedImage)
+//        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
+//        val image = Image(asStream)
+//        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
+//        val applicationClass = Class.forName("com.apple.eawt.Application")
+//        val method = applicationClass.getMethod("getApplication")
+//        val application = method.invoke(applicationClass)
+//        val setDockImage = application.javaClass.getMethod("setDockIconImage", java.awt.Image::class.java)
+//        setDockImage.invoke(application, bufferedImage)
     }
 
     /**
@@ -233,7 +230,7 @@ class SnippetsView : View() {
 
     fun openAbout() {
         println("about")
-        val alert = Alert(AlertType.INFORMATION)
+        val alert = Alert(Alert.AlertType.INFORMATION)
         alert.title = "About KSnips"
         val version = SnippetsApp::class.java.`package`!!.implementationVersion
         alert.headerText = "About KSnips"

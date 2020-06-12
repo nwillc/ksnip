@@ -38,12 +38,13 @@ dependencies {
         "no.tornado:tornadofx",
         "org.slf4j:slf4j-api",
         "org.slf4j:jul-to-slf4j",
+        "org.springframework.boot:spring-boot-starter",
         "${Constants.group}:slf4jkext"
     ) { implementation(it) }
 
-    Dependencies.artifacts(
-        "org.tinylog:slf4j-binding"
-    ) { runtimeOnly(it) }
+//    Dependencies.artifacts(
+//        "org.tinylog:slf4j-binding"
+//    ) { runtimeOnly(it) }
 
     Dependencies.artifacts(
         "org.assertj:assertj-core",
@@ -60,8 +61,18 @@ dependencies {
 detekt {
 }
 
+ktlint {
+    version.set(ToolVersions.ktlint)
+    disabledRules.set(setOf("import-ordering"))
+}
+
 jacoco {
     toolVersion = ToolVersions.jacoco
+}
+
+javafx { // Here we configure OpenJFX
+    version = "11.0.2" // Target Java version
+    modules = arrayListOf("javafx.controls", "javafx.graphics", "javafx.fxml") //Adding modules, you can find more info in the documentation
 }
 
 tasks {
