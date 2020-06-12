@@ -72,13 +72,11 @@ javafx {
 }
 
 tasks {
-    named<Jar>("jar") {
+    named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
         with(manifest) {
-            attributes["Main-Class"] = Constants.mainClassName
             attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
             attributes["Implementation-Version"] = project.version
         }
-        from(Callable { configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) } })
     }
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
