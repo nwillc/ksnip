@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox
 import tornadofx.FileChooserMode
 import tornadofx.View
 import tornadofx.chooseFile
-import java.io.File
 
 /**
  * A view managing the application preferences panel.
@@ -40,10 +39,10 @@ class PreferencesView : View() {
     /**
      * Set the defualt file name.
      */
-    fun setDefaultFile() {
-        val list: List<File> = chooseFile(title = "Default File", filters = SnippetsView.JSON_FILTER, mode = FileChooserMode.Single)
-        defaultFile.text = list[0].path
-    }
+    fun setDefaultFile() =
+        chooseFile(title = "Default File", filters = SnippetsView.JSON_FILTER, mode = FileChooserMode.Single).let {
+            if (it.isNotEmpty()) defaultFile.text = it[0].path
+        }
 
     /**
      * Persist the appication preferences.

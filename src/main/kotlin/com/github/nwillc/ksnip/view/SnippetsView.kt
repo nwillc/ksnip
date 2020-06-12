@@ -38,6 +38,7 @@ import kotlin.system.exitProcess
  * @property workingSet the set of snippets being displayed.
  * @property root the root UI view.
  */
+@SuppressWarnings("TooManyFunctions")
 class SnippetsView : View() {
     companion object {
         /**
