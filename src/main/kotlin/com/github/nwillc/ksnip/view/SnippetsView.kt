@@ -15,7 +15,7 @@
 
 package com.github.nwillc.ksnip.view
 
-import com.github.nwillc.ksnip.SnippetsApp
+import com.github.nwillc.ksnip.TornadoFxApplication
 import com.github.nwillc.ksnip.controller.PreferencesController
 import com.github.nwillc.ksnip.controller.SnippetController
 import com.github.nwillc.ksnip.model.Snippet
@@ -67,29 +67,10 @@ class SnippetsView : View() {
     override val root: VBox by fxml("/views/snippets.fxml")
 
     init {
-        osxConfig()
         workingSet = snippetController.snippets
         refreshCategories()
-        // Scene Builder lacks this event type asignment ?!
+        // Scene Builder lacks this event type assignment ?!
         categoryList.addEventHandler(ActionEvent.ACTION, { categorySelect() })
-    }
-
-    private fun osxConfig() {
-        val os = System.getProperty("os.name", "UNKNOWN")
-        if (!os.equals("Mac OS X")) {
-            return
-        }
-
-        menuBar.isUseSystemMenuBar = true
-        // Hacky OS X dock icon assignment, done with reflection so it can build with any JDK but run on OS X.
-//        val asStream = javaClass.classLoader.getResourceAsStream("icon.png")
-//        val image = Image(asStream)
-//        val bufferedImage = SwingFXUtils.fromFXImage(image, null)
-//        val applicationClass = Class.forName("com.apple.eawt.Application")
-//        val method = applicationClass.getMethod("getApplication")
-//        val application = method.invoke(applicationClass)
-//        val setDockImage = application.javaClass.getMethod("setDockIconImage", java.awt.Image::class.java)
-//        setDockImage.invoke(application, bufferedImage)
     }
 
     /**
@@ -189,8 +170,7 @@ class SnippetsView : View() {
         val selectedTitle: String? = titles.selectedItem
 
         val snippet = snippetController.snippets.find {
-            it.category.equals(selectedCategory) &&
-                    it.title.equals(selectedTitle)
+            it.category.equals(selectedCategory) && it.title.equals(selectedTitle)
         }
         snippetController.snippets.remove(snippet)
         search()
@@ -232,7 +212,7 @@ class SnippetsView : View() {
         println("about")
         val alert = Alert(Alert.AlertType.INFORMATION)
         alert.title = "About KSnips"
-        val version = SnippetsApp::class.java.`package`!!.implementationVersion
+        val version = TornadoFxApplication::class.java.`package`!!.implementationVersion ?: ""
         alert.headerText = "About KSnips"
         alert.contentText = "Version: $version"
         alert.show()

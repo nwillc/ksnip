@@ -16,8 +16,6 @@
 package com.github.nwillc
 
 import com.github.nwillc.ksnip.model.Snippet
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature

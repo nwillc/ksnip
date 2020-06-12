@@ -15,16 +15,12 @@
 
 package com.github.nwillc.ksnip.controller
 
-import com.github.nwillc.ksnip.model.LegacyFile
 import com.github.nwillc.ksnip.model.Snippet
 import com.github.nwillc.ksnip.readSnippets
 import com.github.nwillc.ksnip.view.SnippetsView
 import com.github.nwillc.ksnip.writeSnippets
-import com.github.nwillc.slf4jkext.getLogger
 import tornadofx.Controller
 import java.io.File
-
-private val LOGGER = getLogger<SnippetController>()
 
 /**
  * Application controller for operations regarding [Snippet]s.

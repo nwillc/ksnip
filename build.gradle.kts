@@ -42,10 +42,6 @@ dependencies {
         "${Constants.group}:slf4jkext"
     ) { implementation(it) }
 
-//    Dependencies.artifacts(
-//        "org.tinylog:slf4j-binding"
-//    ) { runtimeOnly(it) }
-
     Dependencies.artifacts(
         "org.assertj:assertj-core",
         "org.junit.jupiter:junit-jupiter",
@@ -63,16 +59,16 @@ detekt {
 
 ktlint {
     version.set(ToolVersions.ktlint)
-    disabledRules.set(setOf("import-ordering"))
+    disabledRules.set(setOf("import-ordering", "no-wildcard-imports"))
 }
 
 jacoco {
     toolVersion = ToolVersions.jacoco
 }
 
-javafx { // Here we configure OpenJFX
-    version = "11.0.2" // Target Java version
-    modules = arrayListOf("javafx.controls", "javafx.graphics", "javafx.fxml") //Adding modules, you can find more info in the documentation
+javafx {
+    version = "11.0.2"
+    modules = arrayListOf("javafx.controls", "javafx.graphics", "javafx.fxml")
 }
 
 tasks {

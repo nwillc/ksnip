@@ -27,7 +27,8 @@ class SnippetTest {
     fun `should be able to serialize a snippet with Kotlin Serialization`() {
         val snippet = Snippet("one", "two", "three")
         val json = Json(JsonConfiguration.Stable).stringify(Snippet.serializer(), snippet)
-        val expected = """{"category":"one","title":"two","body":"three"}"""
+        val expected =
+            """{"category":"one","title":"two","body":"three"}"""
         assertThat(json).isEqualTo(expected)
     }
 
