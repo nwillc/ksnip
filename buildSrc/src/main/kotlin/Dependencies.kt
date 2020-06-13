@@ -18,7 +18,6 @@
 object Constants {
     const val group = "com.github.nwillc"
     const val version = "1.4.0"
-    const val mainClassName = "com.github.nwillc.ksnip.SnippetsApp"
 }
 
 object PluginVersions {

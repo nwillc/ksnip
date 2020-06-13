@@ -95,26 +95,4 @@ tasks {
         outputFormat = "html"
         outputDirectory = "$buildDir/dokka"
     }
-    register<Copy>("prepApp") {
-        dependsOn("assemble")
-        from("src/main/app")
-        from("build/libs/${project.name}-${project.version}.jar")
-        into("build/release")
-    }
-    register<Exec>("osxApp") {
-        dependsOn("prepApp")
-        commandLine = listOf(
-            "javapackager",
-            "-deploy",
-            "-native", "image",
-            "-srcdir", "$buildDir/release",
-            "-srcfiles", "${project.name}-${project.version}.jar",
-            "-outdir", "$buildDir/release",
-            "-outfile", "${project.name}.app",
-            "-appclass", Constants.mainClassName,
-            "-name", project.name, "-BappVersion=${project.version}", "-Bicon=$buildDir/release/${project.name}.icns",
-            "-title", project.name,
-            "-nosign"
-        )
-    }
 }
